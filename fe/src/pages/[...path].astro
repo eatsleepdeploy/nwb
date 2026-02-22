@@ -1,0 +1,54 @@
+---
+import type {SerializedEditorState} from "lexical";
+import {convertLexicalToHTML} from '@payloadcms/richtext-lexical/html'
+import {getPosts, postToPath} from "../lib/postUtils";
+import Layout from '../layouts/Layout.astro';
+import {Post} from "../../payload-types";
+import {getImage} from "astro:assets";
+
+
+export async function getStaticPaths() {
+  const parseImages = async (posts: Post[]) => {
+    return Promise.all(posts.map(async(post) => {
+      if (!post.subcontent){
+        return
+      }
+      await Promise.all(post.subcontent?.root.children.map(async (node: any) => {
+        if (node.type === 'upload') {
+          const thisImage = await getImage({src: `http://localhost:3000${node.value.url}`, alt:node.value.alt, height:node.value.height, width: node.value.width})
+          node.value.url = thisImage.src
+        }
+      }))
+    }));
+  }
+
+    const posts = await getPosts()
+    await parseImages(posts)
+
+    return posts.map((post) => {
+        return {
+            params: {path: postToPath(post)},
+            props: {post},
+        };
+    });
+}
+
+
+const generateHTML = (data: SerializedEditorState) => {
+    //ToDo: pull out image data
+    data.root.children.forEach((node) => {
+      if (node.type === 'upload') {
+
+      }
+    })
+    return convertLexicalToHTML({data, disableContainer:true})
+};
+
+
+const {post} = Astro.props;
+---
+
+<Layout>
+  <h1>{post.title}</h1>
+  <div class="content" set:html={generateHTML(post.subcontent)}></div>
+</Layout>

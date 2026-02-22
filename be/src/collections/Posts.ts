@@ -14,10 +14,14 @@ export const Posts: CollectionConfig = {
         {
             name: 'title',
             type: 'text',
+            required: true,
         },
+        // ToDo: work out how to make this KT-safe
         {
-            name: 'content',
-            type: 'textarea',
+            name: 'slug',
+            type: 'text',
+            required: true,
+            unique: true
         },
         {
             name: 'subcontent',

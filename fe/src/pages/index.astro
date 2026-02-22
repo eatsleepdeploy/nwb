@@ -1,17 +1,16 @@
 ---
-import Welcome from '../components/Welcome.astro';
+
 import Layout from '../layouts/Layout.astro';
-const res = await fetch("http://localhost:3000/api/posts") // http://localhost:4321/api/posts by default
-const posts: any[] = await res.json()
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import {getPosts,postToPath} from "../lib/postUtils";
+import type { Post } from "../../payload-types";
+const posts = await getPosts()
 ---
 
 <Layout>
   {
-    posts.docs.map((post: {title: string, content: string}) => (
-        <h2 set:html={post.title} />
-        <p set:html={post.content} />
+    posts.map((post: Post) => (
+        <h2>{post.title}</h2>
+        <p><a href={postToPath(post)}>Read</a></p>
     ))
   }
 </Layout>
