@@ -21,12 +21,5 @@ export const Posts: CollectionConfig = {
           name: 'subcontent',
           type: 'richText',
         },
-        // {
-        //   name: 'content',
-        //   type: 'blocks',
-        //   blocks: [
-        //
-        //   ]
-        // },
   ],
 }
