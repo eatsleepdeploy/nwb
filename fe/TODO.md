@@ -12,11 +12,13 @@
 # Home Page
 - [] Add author and image to posts and pull through in circle
 - [] Add "Best of NWB" section
+- [] Add "Hot right now" section
+- [] Add "Agency Life" section
+- [] Add "Career decisions" section
 - [] Add Footer
 - [] Add nav
 - [] Make responsive
 - [] Update content to be the correct content based on categories
-
 # Add Pages
 - [] About
 - [] Add to navigation
