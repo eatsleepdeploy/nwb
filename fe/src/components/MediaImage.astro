@@ -1,0 +1,16 @@
+---
+import type {Image} from "@lib/types";
+
+interface Props {
+    image?: Image;
+    class?: string
+    style?: object
+}
+const {class: kls = 't', image, style = {}} = Astro.props;
+---
+{image && <img
+    class:list={[{[kls]: kls}]}
+    src={image.src}
+    alt={image.alt}
+    style={{maxHeight: `${image.height}px`, maxWidth: `${image.width}px`, ...style}}
+/>}

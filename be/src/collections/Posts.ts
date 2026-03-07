@@ -24,6 +24,12 @@ export const Posts: CollectionConfig = {
             unique: true
         },
         {
+          name: 'featuredImage', // The name of the field
+          type: 'upload', // The field type
+          relationTo: 'media', // The slug of the upload-enabled collection
+          required: true,
+        },
+        {
             name: 'subcontent',
             type: 'richText',
         },

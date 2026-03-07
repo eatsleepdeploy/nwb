@@ -2,6 +2,7 @@
 import type {SerializedEditorState} from "lexical";
 import {convertLexicalToHTML} from '@payloadcms/richtext-lexical/html'
 import {getPosts, postToPath} from "../lib/postUtils";
+import {imagePathToUrl} from "../lib/mediaUtils";
 import Layout from '../layouts/Layout.astro';
 import {Post} from "../../payload-types";
 import {getImage} from "astro:assets";
@@ -15,7 +16,7 @@ export async function getStaticPaths() {
       }
       await Promise.all(post.subcontent?.root.children.map(async (node: any) => {
         if (node.type === 'upload') {
-          const thisImage = await getImage({src: `http://localhost:3000${node.value.url}`, alt:node.value.alt, height:node.value.height, width: node.value.width})
+          const thisImage = await imagePathToUrl({src: node.value.url, alt: node.value.alt, height: node.value.height, width: node.value.width})
           node.value.url = thisImage.src
         }
       }))
