@@ -47,7 +47,9 @@ console.log(imagesByPostId)
                     <MediaImage image={imagesByPostId.get(post.id)?.image} class="max-w-full md:max-w-2/3"/>
                     <div class="flex-1 overflow-hidden">
                       <h3 class="size-override text-[1.6em] md:text-[1.8em] lg:text-[2.5em] break-words">{post.title}</h3>
-                      <p class="text-sm mt-1">{post.excerpt}</p>
+                      <p class="text-sm mt-1 mb-0">{post.excerpt}</p>
+                      {post.author && <p class="text-sm mt-0">{post.author?.name}</p>}
+
                     </div>
                   </a>
               ))
@@ -57,13 +59,13 @@ console.log(imagesByPostId)
         <div class="grid md:grid-cols-2 gap-2">
             {
                 posts.map((post: Post, i: number) => (
-                    <div class="flex flex-col gap-3">
+                    <a href={postToPath(post)} class="flex flex-col gap-3">
                       <MediaImage image={imagesByPostId.get(post.id)?.image} class="max-w-full" />
                       <h4 class="break-words">{post.title}</h4>
                       <p class="text-sm mt-1">{post.excerpt}</p>
                       {post.author && <p class="text-sm mt-1">{post.author?.name}</p>}
 
-                    </div>
+                    </a>
                 ))
             }
         </div>
