@@ -6,11 +6,11 @@ interface Props {
     class?: string
     style?: object
 }
-const {class: kls = 't', image, style = {}} = Astro.props;
+const {class: kls = '', image, style = {}} = Astro.props;
 ---
 {image && <img
-    class:list={[{[kls]: kls}]}
+    class={kls}
     src={image.src}
     alt={image.alt}
-    style={{maxHeight: `${image.height}px`, maxWidth: `${image.width}px`, ...style}}
+    style={{...style}}
 />}

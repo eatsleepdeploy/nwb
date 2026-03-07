@@ -36,16 +36,16 @@ console.log(imagesByPostId)
 <Layout>
   <div class="px-10 mt-12">
     <div class="grid grid-cols-10 gap-4">
-      <div class="col-span-10 lg:col-span-6 gap-2">
+      <div class="col-span-10 md:col-span-6 gap-2 flex flex-col">
         <div class="flex items-end border-b-2 border-gray-700 pb-0 mb-4 border-spacing-0 outline-offset-0">
           <span
-              class="bg-gray-700 max-h-full pt-2 p-1 ps-2 pe-1 text-white font-normal uppercase">Latest Interviews</span>
+              class="bg-gray-700 max-h-full pt-2 p-1 ps-2 pe-1 text-white font-normal uppercase max-w-full">Latest Interviews</span>
         </div>
           {
               posts.map((post: Post, i: number) => (
-                  <div class="flex flex-col gap-2 lg:flex-row p-4 h-auto">
-                    <MediaImage image={imagesByPostId.get(post.id)?.image}/>
-                    <div>
+                  <div class="flex flex-col gap-3 md:flex-row h-auto">
+                    <MediaImage image={imagesByPostId.get(post.id)?.image} class="max-w-full md:max-w-2/3"/>
+                    <div class="flex-1">
                       <h3>{post.title}</h3>
                       <p><a href={postToPath(post)}>Read</a></p>
                     </div>
@@ -53,12 +53,12 @@ console.log(imagesByPostId)
               ))
           }
       </div>
-      <div class="col-span-10 lg:col-span-4">
-        <div class="grid lg:grid-cols-2 gap-2">
+      <div class="col-span-10 md:col-span-4 flex flex-col gap-2">
+        <div class="grid md:grid-cols-2 gap-2">
             {
                 posts.map((post: Post, i: number) => (
-                    <div class="p-4">
-                      <MediaImage image={imagesByPostId.get(post.id)?.image} style={{ width: '100%', height: 'auto', maxWidth: '100%', maxHeight: 'auto'}}/>
+                    <div class="flex flex-col gap-3">
+                      <MediaImage image={imagesByPostId.get(post.id)?.image} class="max-w-full" />
                       <h4>{post.title}</h4>
                       <p><a href={postToPath(post)}>Read</a></p>
                     </div>

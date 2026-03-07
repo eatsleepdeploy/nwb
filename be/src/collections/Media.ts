@@ -17,8 +17,8 @@ export const Media: CollectionConfig = {
     imageSizes: [
       {
         name: 'thumbnail',
-        width: 338,
-        height: 338,
+        width: 400,
+        height: 400,
         position: 'centre',
       },
       {

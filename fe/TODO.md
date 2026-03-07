@@ -16,7 +16,6 @@
 - [] Add nav
 - [] Make responsive
 - [] Update content to be the correct content based on categories
-- [] fix image sizing
 
 # Add Pages
 - [] About
