@@ -42,6 +42,12 @@ export const Posts: CollectionConfig = {
             },
         },
         {
+            name: 'author', // The name of the field
+            type: 'relationship', // The field type
+            relationTo: 'authors', // The slug of the upload-enabled collection
+            required: true,
+        },
+        {
             name: 'excerpt',
             type: 'textarea',
             required: false

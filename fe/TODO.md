@@ -12,7 +12,7 @@
 - [] Add auto-generation of excerpts
 
 # Home Page
-- [] Add author and image to posts and pull through in circle
+- [] Add author image to posts
 - [] Add "Best of NWB" section
 - [] Add "Hot right now" section
 - [] Add "Agency Life" section

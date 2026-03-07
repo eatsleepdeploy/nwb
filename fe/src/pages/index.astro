@@ -61,6 +61,8 @@ console.log(imagesByPostId)
                       <MediaImage image={imagesByPostId.get(post.id)?.image} class="max-w-full" />
                       <h4 class="break-words">{post.title}</h4>
                       <p class="text-sm mt-1">{post.excerpt}</p>
+                      {post.author && <p class="text-sm mt-1">{post.author?.name}</p>}
+
                     </div>
                 ))
             }
