@@ -50,5 +50,5 @@ const {post} = Astro.props;
 
 <Layout>
   <h1>{post.title}</h1>
-  <div class="content" set:html={generateHTML(post.subcontent)}></div>
+  {post.subcontent && <div class="content" set:html={generateHTML(post.subcontent)}></div>}
 </Layout>

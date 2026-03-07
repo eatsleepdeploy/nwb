@@ -1,16 +1,41 @@
 ---
-
 import Layout from '../layouts/Layout.astro';
-import {getPosts,postToPath} from "../lib/postUtils";
-import type { Post } from "../../payload-types";
+import {getPosts, postToPath} from "../lib/postUtils";
+import type {Post} from "../../payload-types";
+// ToDo: paginate posts
 const posts = await getPosts()
+
+// ToDo: split posts into first 2 and rest
 ---
 
 <Layout>
-  {
-    posts.map((post: Post) => (
-        <h2>{post.title}</h2>
-        <p><a href={postToPath(post)}>Read</a></p>
-    ))
-  }
+  <div class="px-10 mt-12">
+    <div class="grid grid-cols-8 gap-4">
+      <div class="col-span-5 gap-2">
+        <h3 class="flex items-end border-b-2 border-gray-600 pb-0 mb-4 border-spacing-0 outline-offset-0">
+          <span class="bg-gray-600 max-h-full p-1 ps-2 text-white">Latest Interviews</span>
+        </h3>
+        {
+          posts.map((post: Post, i: number) => (
+              <div class="aspect-3/2 bg-red-50 p-4">
+                <h2>[{i}]{post.title}</h2>
+                <p><a href={postToPath(post)}>Read</a></p>
+              </div>
+          ))
+        }
+      </div>
+      <div class="col-span-3">
+        <div class="grid grid-cols-2 gap-2">
+        {
+          posts.map((post: Post, i: number) => (
+              <div class="aspect-3/2 bg-red-50 p-4">
+                <h2>[{i}]{post.title}</h2>
+                <p><a href={postToPath(post)}>Read</a></p>
+              </div>
+          ))
+        }
+        </div>
+      </div>
+    </div>
+  </div>
 </Layout>
