@@ -22,14 +22,34 @@ const imagesAndPosts: ImageData[] = await Promise.all(posts.map(async (post) => 
     })
     return {id: post.id, image}
 }))
-console.log(imagesAndPosts)
+
 const imagesByPostId = imagesAndPosts.reduce((acc, curr) => {
     if (curr) {
         acc.set(curr.id, curr)
     }
     return acc
 }, new Map() as Map<number, ImageData>)
-console.log(imagesByPostId)
+
+
+const imagesAndAuthors: ImageData[] = await Promise.all(posts.map(async (post) => {
+    console.log(post)
+    if (!post.author) {
+        return null;
+    }
+    const image = await imagePathToUrl({
+        path: post.author.photo.sizes.thumbnail.url,
+        alt: post.author.photo.alt,
+        height: post.author.photo.sizes.thumbnail.height,
+        width: post.author.photo.sizes.thumbnail.width
+    })
+    return {id: post.author.id, image}
+}))
+const imagesByAuthorId = imagesAndAuthors.reduce((acc, curr) => {
+    if (curr) {
+        acc.set(curr.id, curr)
+    }
+    return acc
+}, new Map() as Map<number, ImageData>)
 // ToDo: split posts into first 2 and rest
 ---
 
@@ -43,13 +63,12 @@ console.log(imagesByPostId)
         </div>
           {
               posts.map((post: Post, i: number) => (
-                  <a href={postToPath(post)} class="flex flex-col gap-4 md:flex-row h-auto">
+                  <a href={postToPath(post)} class="flex flex-col gap-4 md:flex-row h-auto align-middle">
                     <MediaImage image={imagesByPostId.get(post.id)?.image} class="max-w-full md:max-w-2/3"/>
-                    <div class="flex-1 overflow-hidden">
+                    <div class="flex flex-col flex-1 overflow-hidden justify-center">
                       <h3 class="size-override text-[1.6em] md:text-[1.8em] lg:text-[2.5em] break-words">{post.title}</h3>
                       <p class="text-sm mt-1 mb-0">{post.excerpt}</p>
-                      {post.author && <p class="text-sm mt-0">{post.author?.name}</p>}
-
+                      {post.author && <p class="text-sm mt-1 font-bold"><MediaImage class="inline-block rounded-full mr-2" image={imagesByAuthorId.get(post.author.id)?.image} style={{ width: '20px', height: '20px' }} />{post.author?.name}</p>}
                     </div>
                   </a>
               ))
@@ -63,8 +82,7 @@ console.log(imagesByPostId)
                       <MediaImage image={imagesByPostId.get(post.id)?.image} class="max-w-full" />
                       <h4 class="break-words">{post.title}</h4>
                       <p class="text-sm mt-1">{post.excerpt}</p>
-                      {post.author && <p class="text-sm mt-1">{post.author?.name}</p>}
-
+                      {post.author && <p class="text-sm mt-1 font-bold"><MediaImage class="inline-block rounded-full mr-2" image={imagesByAuthorId.get(post.author.id)?.image} style={{ width: '20px', height: '20px'}} />{post.author?.name}</p>}
                     </a>
                 ))
             }
