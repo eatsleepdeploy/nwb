@@ -8,6 +8,7 @@
 - [] Search: figure out how to do this
   - Workers?
   - Algolia?
+- [] Maybe try moving tailwind plus elements to
 
 # Home Page
 - [] Add author and image to posts and pull through in circle
@@ -16,12 +17,11 @@
 - [] Add "Agency Life" section
 - [] Add "Career decisions" section
 - [] Add Footer
-- [] Add nav
-- [] Make responsive
 - [] Update content to be the correct content based on categories
+
 # Add Pages
 - [] About
-- [] Add to navigation
+- [] Add to navigation and update links
 
 # Comments
 - [] Figure out a worker setup to store them

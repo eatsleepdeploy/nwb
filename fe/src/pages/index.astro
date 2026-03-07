@@ -34,12 +34,12 @@ console.log(imagesByPostId)
 ---
 
 <Layout>
-  <div class="px-10 mt-12">
+  <div class="px-10 mt-12 bounded">
     <div class="grid grid-cols-10 gap-4">
       <div class="col-span-10 md:col-span-6 gap-2 flex flex-col">
         <div class="flex items-end border-b-2 border-gray-700 pb-0 mb-4 border-spacing-0 outline-offset-0">
           <span
-              class="bg-gray-700 max-h-full pt-2 p-1 ps-2 pe-1 text-white font-normal uppercase max-w-full">Latest Interviews</span>
+              class="bg-gray-700 max-h-full pt-2 p-1 px-2 text-white font-normal uppercase max-w-full">Latest Interviews</span>
         </div>
           {
               posts.map((post: Post, i: number) => (
