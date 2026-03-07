@@ -9,6 +9,7 @@
   - Workers?
   - Algolia?
 - [] Maybe try moving tailwind plus elements to
+- [] Add auto-generation of excerpts
 
 # Home Page
 - [] Add author and image to posts and pull through in circle

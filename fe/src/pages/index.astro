@@ -43,13 +43,13 @@ console.log(imagesByPostId)
         </div>
           {
               posts.map((post: Post, i: number) => (
-                  <div class="flex flex-col gap-3 md:flex-row h-auto">
+                  <a href={postToPath(post)} class="flex flex-col gap-4 md:flex-row h-auto">
                     <MediaImage image={imagesByPostId.get(post.id)?.image} class="max-w-full md:max-w-2/3"/>
-                    <div class="flex-1">
-                      <h3>{post.title}</h3>
-                      <p><a href={postToPath(post)}>Read</a></p>
+                    <div class="flex-1 overflow-hidden">
+                      <h3 class="size-override text-[1.6em] md:text-[1.8em] lg:text-[2.5em] break-words">{post.title}</h3>
+                      <p class="text-sm mt-1">{post.excerpt}</p>
                     </div>
-                  </div>
+                  </a>
               ))
           }
       </div>
@@ -59,8 +59,8 @@ console.log(imagesByPostId)
                 posts.map((post: Post, i: number) => (
                     <div class="flex flex-col gap-3">
                       <MediaImage image={imagesByPostId.get(post.id)?.image} class="max-w-full" />
-                      <h4>{post.title}</h4>
-                      <p><a href={postToPath(post)}>Read</a></p>
+                      <h4 class="break-words">{post.title}</h4>
+                      <p class="text-sm mt-1">{post.excerpt}</p>
                     </div>
                 ))
             }

@@ -4,13 +4,17 @@ body {
     font-family: "Roboto", sans-serif;
 }
 
+p {
+    font-family: "Open Sans", sans-serif;
+}
+
 h1, h2, h3, h4, h5, .chivo-heading {
     font-family: "Chivo", sans-serif;
     font-optical-sizing: auto;
     font-weight: 900;
     font-style: normal;
 }
-h3 {
+h3:not(.size-override) {
     font-size: 1.6em;
     line-height: 1.1;
 }
