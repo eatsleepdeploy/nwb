@@ -83,7 +83,7 @@ const imagesByAuthorId = reduceImageDataListById(imagesAndAuthors)
         <div class="grid md:grid-cols-2 gap-2">
             {
                 restPosts.map((post: Post, i: number) => (
-                    <a href={postToPath(post)} class="flex flex-col gap-3">
+                    <a href={postToPath(post)} class="flex flex-col gap-3 mb-6">
                       <MediaImage image={imagesByPostId.get(post.id)?.image} class="max-w-full"/>
                       <h4 class="break-words">{post.title}</h4>
                       <p class="text-sm mt-1">{post.excerpt}</p>
