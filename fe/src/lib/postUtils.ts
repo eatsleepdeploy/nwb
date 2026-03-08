@@ -20,21 +20,6 @@ export const getPosts = async (limit: number = 10) => {
     return posts.docs
 }
 
-
-export const getBestOfNWBPosts = async () => {
-    const stringifiedQuery = stringify({
-        where: {
-            'tags.slug': {
-                equals: 'best-of-nwb'
-            }
-        } satisfies Where,
-        depth: 1,
-    })
-    const res = await fetch(`http://localhost:3000/api/posts?${stringifiedQuery}`)
-    const posts: { docs: Post[] } = await res.json()
-    return posts.docs
-}
-
 export const getPostsWithTags = async (tags: string[], limit: number = 10) => {
     const stringifiedQuery = stringify({
         where: {
@@ -43,7 +28,7 @@ export const getPostsWithTags = async (tags: string[], limit: number = 10) => {
             }
         } satisfies Where,
         limit,
-        depth: 1,
+        depth: 2,
     })
     const res = await fetch(`http://localhost:3000/api/posts?${stringifiedQuery}`)
     const posts: { docs: Post[] } = await res.json()

@@ -27,11 +27,7 @@
 - [] Main content & styling
 - [] Similar posts based on category
 - [] Next/Prev posts
-- [] Decide on whether the category should be in the header in a black box, or should just always be interview? or? 
-
-# Add tag-listing pages
-- [] Do
-  - example url: https://nowankybollocks.com/tag/founder/
+- [] Decide on whether the category should be in the header in a black box, or should just always be interview? or?
 
 # Comments
 - [] Figure out a worker setup to store them

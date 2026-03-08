@@ -1,55 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import {imagePathToUrl} from "@lib/mediaUtils";
+import { getImagesForPosts} from "@lib/mediaUtils";
 import {getPosts, postToPath, getPostsWithTags} from "@lib/postUtils";
 import type {Post} from "../../payload-types";
 import MediaImage from "../components/MediaImage.astro";
-import type {Image} from "@lib/types";
 
 const posts = await getPosts(6)
+const firstTwoPosts = posts.slice(0, 2)
+const restPosts = posts.slice(2)
 const agencyLifePosts = await getPostsWithTags(['agencies', 'agency'], 20)
 const bestOfNWBPosts = await getPostsWithTags(['best-of-nwb'], 20)
 const careerDecisionsPosts = await getPostsWithTags(['career', 'career-decisions'], 7)
 
-type ImageData = { id: number, image: Image } | null
-const imagesAndPosts: ImageData[] = await Promise.all(posts.map(async (post) => {
-    if (!post.featuredImage?.sizes.thumbnail) {
-        return null;
-    }
-    const image = await imagePathToUrl({
-        path: post.featuredImage.sizes.thumbnail.url,
-        alt: post.featuredImage.alt,
-        height: post.featuredImage.sizes.thumbnail.height,
-        width: post.featuredImage.sizes.thumbnail.width
-    })
-    return {id: post.id, image}
-}))
-const firstTwoPosts = posts.slice(0, 2)
-const restPosts = posts.slice(2)
-
-const reduceImageDataListById = (data: ImageData[]) => data.reduce((acc, curr) => {
-    if (curr) {
-        acc.set(curr.id, curr)
-    }
-    return acc
-}, new Map() as Map<number, ImageData>)
-
-const imagesByPostId = reduceImageDataListById(imagesAndPosts)
-
-
-const imagesAndAuthors: ImageData[] = await Promise.all(posts.map(async (post) => {
-    if (!post.author) {
-        return null;
-    }
-    const image = await imagePathToUrl({
-        path: post.author.photo.sizes.thumbnail.url,
-        alt: post.author.photo.alt,
-        height: post.author.photo.sizes.thumbnail.height,
-        width: post.author.photo.sizes.thumbnail.width
-    })
-    return {id: post.author.id, image}
-}))
-const imagesByAuthorId = reduceImageDataListById(imagesAndAuthors)
+const {imagesByAuthorId, imagesByPostId} = await getImagesForPosts(posts)
 // ToDo: split posts into first 2 and rest
 ---
 
