@@ -1,16 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import {imagePathToUrl} from "@lib/mediaUtils";
-import {getPosts, postToPath} from "@lib/postUtils";
+import {getPosts, postToPath, getBestOfNWBPosts} from "@lib/postUtils";
 import type {Post} from "../../payload-types";
 import MediaImage from "../components/MediaImage.astro";
 import type {Image} from "@lib/types";
 // ToDo: paginate posts
 const posts = await getPosts()
+const bestOfNWBPosts = await getBestOfNWBPosts()
 
 type ImageData = { id: number, image: Image } | null
 const imagesAndPosts: ImageData[] = await Promise.all(posts.map(async (post) => {
-    console.log(post)
     if (!post.featuredImage?.sizes.thumbnail) {
         return null;
     }
@@ -32,7 +32,6 @@ const imagesByPostId = imagesAndPosts.reduce((acc, curr) => {
 
 
 const imagesAndAuthors: ImageData[] = await Promise.all(posts.map(async (post) => {
-    console.log(post)
     if (!post.author) {
         return null;
     }
@@ -68,7 +67,12 @@ const imagesByAuthorId = imagesAndAuthors.reduce((acc, curr) => {
                     <div class="flex flex-col flex-1 overflow-hidden justify-center">
                       <h3 class="size-override text-[1.6em] md:text-[1.8em] lg:text-[2.5em] break-words">{post.title}</h3>
                       <p class="text-sm mt-1 mb-0">{post.excerpt}</p>
-                      {post.author && <p class="text-sm mt-1 font-bold"><MediaImage class="inline-block rounded-full mr-2" image={imagesByAuthorId.get(post.author.id)?.image} style={{ width: '20px', height: '20px' }} />{post.author?.name}</p>}
+                        {post.author &&
+                            <p class="text-sm mt-1 font-bold">
+                              <MediaImage class="inline-block rounded-full mr-2"
+                                          image={imagesByAuthorId.get(post.author.id)?.image}
+                                          style={{width: '20px', height: '20px'}}/>
+                                {post.author?.name}</p>}
                     </div>
                   </a>
               ))
@@ -79,15 +83,45 @@ const imagesByAuthorId = imagesAndAuthors.reduce((acc, curr) => {
             {
                 posts.map((post: Post, i: number) => (
                     <a href={postToPath(post)} class="flex flex-col gap-3">
-                      <MediaImage image={imagesByPostId.get(post.id)?.image} class="max-w-full" />
+                      <MediaImage image={imagesByPostId.get(post.id)?.image} class="max-w-full"/>
                       <h4 class="break-words">{post.title}</h4>
                       <p class="text-sm mt-1">{post.excerpt}</p>
-                      {post.author && <p class="text-sm mt-1 font-bold"><MediaImage class="inline-block rounded-full mr-2" image={imagesByAuthorId.get(post.author.id)?.image} style={{ width: '20px', height: '20px'}} />{post.author?.name}</p>}
+                        {post.author &&
+                            <p class="text-sm mt-1 font-bold">
+                              <MediaImage class="inline-block rounded-full mr-2"
+                                          image={imagesByAuthorId.get(post.author.id)?.image}
+                                          style={{width: '20px', height: '20px'}}/>
+                                {post.author?.name}</p>}
                     </a>
                 ))
             }
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class="px-10 mt-12 bounded">
+    <div class="grid grid-cols-1 md:grid-cols-4  gap-4">
+      <div class="flex items-end border-b-2 border-gray-700 pb-0 mb-4 border-spacing-0 outline-offset-0 md:col-span-4">
+          <span
+              class="bg-gray-700 max-h-full pt-2 p-1 px-2 text-white font-normal max-w-full">Best of NWB</span>
+      </div>
+        {
+            bestOfNWBPosts.map((post: Post, i: number) => (
+                <a href={postToPath(post)} class="flex flex-col gap-3">
+                  <MediaImage image={imagesByPostId.get(post.id)?.image} class="max-w-full"/>
+                  {post.author &&
+                        <p class="text-sm mt-1 font-bold">
+                          <MediaImage class="inline-block rounded-full mr-2"
+                                      image={imagesByAuthorId.get(post.author.id)?.image}
+                                      style={{width: '20px', height: '20px'}}/>
+                            {post.author?.name}</p>}
+                  <h4 class="break-words">{post.title}</h4>
+                  <p class="text-sm mt-1">{post.excerpt}</p>
+
+                </a>
+            ))
+        }
     </div>
   </div>
 </Layout>
