@@ -9,8 +9,13 @@ export const postToPath = (post: Post) => {
 }
 
 
-export const getPosts = async () => {
-    const res = await fetch("http://localhost:3000/api/posts")
+export const getPosts = async (limit: number = 10) => {
+    const stringifiedQuery = stringify({
+        limit,
+        depth: 2,
+    })
+    console.log(stringifiedQuery)
+    const res = await fetch(`http://localhost:3000/api/posts?${stringifiedQuery}`)
     const posts: { docs: Post[] } = await res.json()
     return posts.docs
 }
@@ -24,10 +29,8 @@ export const getBestOfNWBPosts = async () => {
             }
         } satisfies Where,
         depth: 1,
-    }, {addQueryPrefix: true})
-    console.log(stringifiedQuery)
-    const res = await fetch(`http://localhost:3000/api/posts${stringifiedQuery}`)
+    })
+    const res = await fetch(`http://localhost:3000/api/posts?${stringifiedQuery}`)
     const posts: { docs: Post[] } = await res.json()
-    console.log('GOT', posts.docs.length)
     return posts.docs
 }

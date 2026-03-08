@@ -6,7 +6,7 @@ import type {Post} from "../../payload-types";
 import MediaImage from "../components/MediaImage.astro";
 import type {Image} from "@lib/types";
 // ToDo: paginate posts
-const posts = await getPosts()
+const posts = await getPosts(6)
 const bestOfNWBPosts = await getBestOfNWBPosts()
 
 type ImageData = { id: number, image: Image } | null
@@ -22,13 +22,17 @@ const imagesAndPosts: ImageData[] = await Promise.all(posts.map(async (post) => 
     })
     return {id: post.id, image}
 }))
+const firstTwoPosts = posts.slice(0, 2)
+const restPosts = posts.slice(2)
 
-const imagesByPostId = imagesAndPosts.reduce((acc, curr) => {
+const reduceImageDataListById = (data: ImageData[]) => data.reduce((acc, curr) => {
     if (curr) {
         acc.set(curr.id, curr)
     }
     return acc
 }, new Map() as Map<number, ImageData>)
+
+const imagesByPostId = reduceImageDataListById(imagesAndPosts)
 
 
 const imagesAndAuthors: ImageData[] = await Promise.all(posts.map(async (post) => {
@@ -43,12 +47,7 @@ const imagesAndAuthors: ImageData[] = await Promise.all(posts.map(async (post) =
     })
     return {id: post.author.id, image}
 }))
-const imagesByAuthorId = imagesAndAuthors.reduce((acc, curr) => {
-    if (curr) {
-        acc.set(curr.id, curr)
-    }
-    return acc
-}, new Map() as Map<number, ImageData>)
+const imagesByAuthorId = reduceImageDataListById(imagesAndAuthors)
 // ToDo: split posts into first 2 and rest
 ---
 
@@ -61,7 +60,7 @@ const imagesByAuthorId = imagesAndAuthors.reduce((acc, curr) => {
               class="bg-gray-700 max-h-full pt-2 p-1 px-2 text-white font-normal uppercase max-w-full">Latest Interviews</span>
         </div>
           {
-              posts.map((post: Post, i: number) => (
+              firstTwoPosts.map((post: Post, i: number) => (
                   <a href={postToPath(post)} class="flex flex-col gap-4 md:flex-row h-auto align-middle">
                     <MediaImage image={imagesByPostId.get(post.id)?.image} class="max-w-full md:max-w-2/3"/>
                     <div class="flex flex-col flex-1 overflow-hidden justify-center">
@@ -81,7 +80,7 @@ const imagesByAuthorId = imagesAndAuthors.reduce((acc, curr) => {
       <div class="col-span-10 md:col-span-4 flex flex-col gap-2">
         <div class="grid md:grid-cols-2 gap-2">
             {
-                posts.map((post: Post, i: number) => (
+                restPosts.map((post: Post, i: number) => (
                     <a href={postToPath(post)} class="flex flex-col gap-3">
                       <MediaImage image={imagesByPostId.get(post.id)?.image} class="max-w-full"/>
                       <h4 class="break-words">{post.title}</h4>
