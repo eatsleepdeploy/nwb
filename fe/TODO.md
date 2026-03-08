@@ -7,12 +7,14 @@
   - Header scaling
 - [] Search: figure out how to do this
   - Workers?
+    - With main DB in D1?
+    - With a copy db in D1?
+    - Some sort of JSON dump with regex query?
   - Algolia?
-- [] Maybe try moving tailwind plus elements to
-- [] Add auto-generation of excerpts
 - [] Work out how to import from WordPress
-- [] Write up blog post about approach
 - [] Add favicon
+- [] Write up blog post about approach
+
 
 # Home Page
 - [] Add Footer
