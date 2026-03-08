@@ -14,8 +14,6 @@
 - [] Write up blog post about approach
 
 # Home Page
-- [] Add "Agency Life" section
-  - agencies, agency
 - [] Add "Career decisions" section
   - career, career-decisions,
 - [] Add Footer

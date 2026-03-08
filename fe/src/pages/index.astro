@@ -6,6 +6,7 @@ import type {Post} from "../../payload-types";
 import MediaImage from "../components/MediaImage.astro";
 import type {Image} from "@lib/types";
 const posts = await getPosts(6)
+const agencyLifePosts = await getPostsWithTags(['agencies', 'agency'], 20)
 const bestOfNWBPosts = await getPostsWithTags(['best-of-nwb'], 20)
 
 type ImageData = { id: number, image: Image } | null
@@ -108,7 +109,7 @@ const imagesByAuthorId = reduceImageDataListById(imagesAndAuthors)
             bestOfNWBPosts.map((post: Post, i: number) => (
                 <a href={postToPath(post)} class="flex flex-col gap-3">
                   <MediaImage image={imagesByPostId.get(post.id)?.image} class="max-w-full"/>
-                  {post.author &&
+                    {post.author &&
                         <p class="text-sm mt-1 font-bold">
                           <MediaImage class="inline-block rounded-full mr-2"
                                       image={imagesByAuthorId.get(post.author.id)?.image}
@@ -117,6 +118,33 @@ const imagesByAuthorId = reduceImageDataListById(imagesAndAuthors)
                   <h4 class="break-words">{post.title}</h4>
                   <p class="text-sm mt-1">{post.excerpt}</p>
 
+                </a>
+            ))
+        }
+    </div>
+  </div>
+  <div hidden={agencyLifePosts.length == 0} class="px-10 my-12 bounded bg-black">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+      <div class="flex items-end mt-8 border-spacing-0 md:col-span-3">
+        <h3 class="max-h-full size-override text-white text-[2.6em] uppercase">Agency Life</h3>
+      </div>
+        {
+            agencyLifePosts.map((post: Post, i: number) => (
+                <a href={postToPath(post)} class="flex flex-col md:flex-row h-auto gap-4">
+                  <MediaImage class="flex-1 md:max-w-1/2 max-w-full justify-center"
+                              image={imagesByPostId.get(post.id)?.image}
+                              style={{height: 'fit-content'}}/>
+                  <div class="flex flex-col flex-1 overflow-hidden justify-start text-white">
+                    <h3 class="size-override text-[1.6em] break-words">{post.title}</h3>
+                      {post.author &&
+                          <p class="text-sm mt-1 font-bold">
+                            <MediaImage class="inline-block rounded-full mr-2"
+                                        image={imagesByAuthorId.get(post.author.id)?.image}
+                                        style={{width: '20px', height: '20px'}}/>
+                              {post.author?.name}</p>}
+                    <p class="text-sm mt-1 mb-0">{post.excerpt}</p>
+                    }
+                  </div>
                 </a>
             ))
         }
