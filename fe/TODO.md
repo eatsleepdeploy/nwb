@@ -10,9 +10,10 @@
   - Algolia?
 - [] Maybe try moving tailwind plus elements to
 - [] Add auto-generation of excerpts
+- [] Work out how to import from WordPress
+- [] Write up blog post about approach
 
 # Home Page
-- [] Add author image to posts
 - [] Add "Best of NWB" section
 - [] Add "Hot right now" section
 - [] Add "Agency Life" section
@@ -24,6 +25,15 @@
 - [] About
 - [] Add to navigation and update links
 
+# Add single post page
+- [] Main content & styling
+- [] Similar posts based on category
+- [] Next/Prev posts
+
+# Add tag-listing pages
+- [] Do
+- 
+
 # Comments
 - [] Figure out a worker setup to store them
 - [] Add in email notifications
@@ -32,4 +42,4 @@
 # Deployment
 - [] Setup file-publishing
 - [] Setup editing environment for KT
-- 
+- [] Database backups - point at D1?
