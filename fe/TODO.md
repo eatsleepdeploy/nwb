@@ -12,6 +12,7 @@
 - [] Add auto-generation of excerpts
 - [] Work out how to import from WordPress
 - [] Write up blog post about approach
+- [] Add favicon
 
 # Home Page
 - [] Add "Career decisions" section
