@@ -14,10 +14,10 @@
 - [] Write up blog post about approach
 
 # Home Page
-- [] Add "Best of NWB" section
-- [] Add "Hot right now" section
 - [] Add "Agency Life" section
+  - agencies, agency
 - [] Add "Career decisions" section
+  - career, career-decisions,
 - [] Add Footer
 - [] Update content to be the correct content based on categories
 
@@ -38,6 +38,8 @@
 - [] Figure out a worker setup to store them
 - [] Add in email notifications
 - [] Figure out a cron sync to pull them through to payload
+- [] Add "Hot right now" section to homepage
+  - Ordered by number of comments - needs comme
 
 # Deployment
 - [] Setup file-publishing

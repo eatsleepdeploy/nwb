@@ -1,13 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import {imagePathToUrl} from "@lib/mediaUtils";
-import {getPosts, postToPath, getBestOfNWBPosts} from "@lib/postUtils";
+import {getPosts, postToPath, getPostsWithTags} from "@lib/postUtils";
 import type {Post} from "../../payload-types";
 import MediaImage from "../components/MediaImage.astro";
 import type {Image} from "@lib/types";
-// ToDo: paginate posts
 const posts = await getPosts(6)
-const bestOfNWBPosts = await getBestOfNWBPosts()
+const bestOfNWBPosts = await getPostsWithTags(['best-of-nwb'], 20)
 
 type ImageData = { id: number, image: Image } | null
 const imagesAndPosts: ImageData[] = await Promise.all(posts.map(async (post) => {
