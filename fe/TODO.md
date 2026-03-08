@@ -15,8 +15,6 @@
 - [] Add favicon
 
 # Home Page
-- [] Add "Career decisions" section
-  - career, career-decisions,
 - [] Add Footer
 - [] Update content to be the correct content based on categories
 

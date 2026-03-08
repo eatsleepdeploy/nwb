@@ -5,9 +5,11 @@ import {getPosts, postToPath, getPostsWithTags} from "@lib/postUtils";
 import type {Post} from "../../payload-types";
 import MediaImage from "../components/MediaImage.astro";
 import type {Image} from "@lib/types";
+
 const posts = await getPosts(6)
 const agencyLifePosts = await getPostsWithTags(['agencies', 'agency'], 20)
 const bestOfNWBPosts = await getPostsWithTags(['best-of-nwb'], 20)
+const careerDecisionsPosts = await getPostsWithTags(['career', 'career-decisions'], 7)
 
 type ImageData = { id: number, image: Image } | null
 const imagesAndPosts: ImageData[] = await Promise.all(posts.map(async (post) => {
@@ -143,11 +145,44 @@ const imagesByAuthorId = reduceImageDataListById(imagesAndAuthors)
                                         style={{width: '20px', height: '20px'}}/>
                               {post.author?.name}</p>}
                     <p class="text-sm mt-1 mb-0">{post.excerpt}</p>
-                    }
                   </div>
                 </a>
             ))
         }
     </div>
   </div>
+
+  <div hidden={careerDecisionsPosts.length == 0} class="px-10 my-12 bounded bg-white">
+    <div class="grid grid-cols-1 md:grid-cols-10 gap-1">
+      <div class="flex items-end my-8 border-spacing-0 md:col-span-10 justify-center">
+        <h3 class="max-h-full size-override text-white text-[1.8em] uppercase bg-black px-4 py-2 ">
+          <span class="">Career decisions</span>
+        </h3>
+      </div>
+        {
+            careerDecisionsPosts.map((post: Post, i: number) => (
+                <a href={postToPath(post)}
+                   class="relative aspect-4/2 text-white"
+                   class:list={[{'md:col-span-5': i < 2}, {'md:col-span-2': i >= 2}]}
+                >
+                  <img src={imagesByPostId.get(post.id)?.image.src} alt="Background image"
+                       class="absolute inset-0 h-full w-full object-cover"/>
+                  <div class="absolute inset-0 bg-black/50 shadow-2xl flex flex-col items-center justify-end pb-6">
+                    <h3 class="size-override break-words"
+                        class:list={[{'text-[1.6em]': i < 2}, {'text-[1em]': i >= 2},]}>{post.title}</h3>
+                      {post.author &&
+                          <p class="mt-1 font-bold" class:list={[{'text-sm': i < 2}, {'text-xs': i >= 2},]}>
+                            <MediaImage class="inline-block rounded-full mr-2"
+                                        image={imagesByAuthorId.get(post.author.id)?.image}
+                                        style={{width: '20px', height: '20px'}}/>
+                              {post.author?.name}</p>}
+                      {i < 2 && <p class="text-sm mt-1 mb-0 text-center py-2">{post.excerpt}</p>}
+                  </div>
+                </a>
+            ))
+        }
+    </div>
+  </div>
+  <div>FOOTER</div>
+
 </Layout>
