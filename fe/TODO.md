@@ -16,7 +16,6 @@
 
 # Home Page
 - [] Add Footer
-- [] Update content to be the correct content based on categories
 
 # Add Pages
 - [] About
