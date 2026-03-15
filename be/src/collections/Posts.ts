@@ -1,5 +1,5 @@
 import type {CollectionConfig} from 'payload'
-import {populateSlug} from "@/collections/utils";
+import {populateSlug, setPublished} from "@/collections/utils";
 
 export const Posts: CollectionConfig = {
     slug: 'posts',
@@ -9,7 +9,20 @@ export const Posts: CollectionConfig = {
     versions: {drafts: true},
 
     access: {
-        read: () => true,
+        read: ({req}) => {
+            // If there is a user logged in,
+            // let them retrieve all documents
+            if (req.user) return true
+
+            // If there is no user,
+            // restrict the documents that are returned
+            // to only those where `_status` is equal to `published`
+            return {
+                _status: {
+                    equals: 'published',
+                },
+            }
+        },
     },
     fields: [
         {
@@ -53,6 +66,14 @@ export const Posts: CollectionConfig = {
             relationTo: 'tags', // The slug of the upload-enabled collection
             required: false,
             hasMany: true
+        },
+        {
+            name: 'publishedAt',
+            type: 'date',
+            required: true,
+            hooks: {
+                beforeChange: [setPublished],
+            },
         },
     ],
 }

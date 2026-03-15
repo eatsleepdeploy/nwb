@@ -209,6 +209,7 @@ export interface Post {
     [k: string]: unknown;
   } | null;
   tags?: (number | Tag)[] | null;
+  publishedAt: string;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -413,6 +414,7 @@ export interface PostsSelect<T extends boolean = true> {
   featuredImage?: T;
   subcontent?: T;
   tags?: T;
+  publishedAt?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;

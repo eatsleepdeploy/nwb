@@ -1,7 +1,7 @@
 ---
 import type {SerializedEditorState} from "lexical";
 import {convertLexicalToHTML} from '@payloadcms/richtext-lexical/html'
-import {getPosts, postToPath} from "../lib/postUtils";
+import {getPosts, postToPath, postToPublishDate} from "../lib/postUtils";
 import {getImagesForPosts, imagePathToUrl} from "../lib/mediaUtils";
 import Layout from '@layouts/Layout.astro';
 import {Post} from "@root/payload-types";
@@ -68,7 +68,7 @@ const {imagesByAuthorId, imagesByPostId} = await getImagesForPosts([post])
               <MediaImage class="inline-block rounded-full mr-1"
                           image={imagesByAuthorId.get(post.author.id)?.image}
                           style={{width: '30px', height: '30px'}}/>
-                By <span class="text-black">{post.author?.name}</span> </p>}
+                By <span class="text-black">{post.author?.name}</span> {postToPublishDate(post)} </p>}
     </div>
   </div>
   <div class="px-10 mt-12 bounded">

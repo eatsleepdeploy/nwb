@@ -15,3 +15,13 @@ export const populateSlug: FieldHook<Post> = ({value, data}) => {
     }
     return value;
 };
+
+
+export const setPublished: FieldHook<Post> = ({value, data}) => {
+    if (value) {
+        return value;
+    }
+    if (data?._status == 'published') {
+        return data.updatedAt;
+    }
+};

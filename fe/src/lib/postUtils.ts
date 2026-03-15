@@ -8,6 +8,11 @@ export const postToPath = (post: Post) => {
     return `/${d.getFullYear()}/${padZero(d.getMonth() + 1)}/${padZero(d.getDay())}/${post.slug}`
 }
 
+export const postToPublishDate = (post: Post) : string => {
+    const d = new Date(post.publishedAt || post.createdAt)
+    return `${d.toLocaleString('default', { month: 'long' })} ${d.getDate()}, ${d.getFullYear()}`
+}
+
 
 export const getPosts = async (limit: number = 10) => {
     const stringifiedQuery = stringify({
