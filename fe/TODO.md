@@ -13,10 +13,6 @@
   - Add og: stuff
   - Add metadata title/description
 
-# Home Page
-- [] Add Footer
-  - Output tags ordered by connected-post-count.
-
 # Add single post page
 - [] Main content & styling
 - [] Similar posts based on category
