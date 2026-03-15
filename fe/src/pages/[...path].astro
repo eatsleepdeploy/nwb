@@ -53,14 +53,13 @@ const generateHTML = (data: SerializedEditorState) => {
 
 const {post} = Astro.props;
 
-
 const {imagesByAuthorId, imagesByPostId} = await getImagesForPosts([post])
 ---
 
 <Layout>
-  <div class="px-0 mt-12 bounded py-12 bg-cover flex justify-center md:justify-start"
+  <div class="px-0 lg:pl-6 py-48 big-bounded bg-cover bg-center flex justify-center md:justify-start"
        style={{backgroundImage: `url(${imagesByPostId.get(post.id)?.image.src})`}}>
-    <div class="bg-white max-w-7/8 md:max-w-1/2 lg:max-w-2/3 p-8 py-10">
+    <div class="bg-white max-w-7/8 md:max-w-2/3 lg:max-w-1/2 p-12">
       <a href="/interviews" class="bg-black text-white uppercase bold open-sans px-2.5 py-1.5 text-sm">Interviews</a>
       <h1 class="mt-1">{post.title}</h1>
         {post.author &&

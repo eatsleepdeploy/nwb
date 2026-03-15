@@ -16,7 +16,7 @@ h1, h2, h3, h4, h5, .chivo-heading {
     font-style: normal;
 }
 h1 {
-    font-size: 3em;
+    font-size: 3.4em;
     line-height: 1.1;
 }
 h3:not(.size-override) {
@@ -36,4 +36,59 @@ h5 {
     max-width: 1440px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.big-bounded{
+    max-width: 1920px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* CONTENT STYLING */
+.content {
+    font-family: "Open Sans", sans-serif;
+}
+
+.content h2 {
+    font-size: 1.6em;
+    line-height: 1.1;
+    margin-top: 1.6em;
+    font-weight: normal;
+}
+
+.content p {
+    margin: 1.2em 0;
+}
+
+.content a {
+    color: #1e73be;
+}
+
+.content ul {
+    list-style-type: disc;
+}
+
+.content ol {
+    list-style-type: decimal;
+}
+
+.content li {
+    margin-left: 1.4em;
+    margin-top: 1em;
+}
+
+.content blockquote  {
+    font-family: "Chivo", sans-serif;
+    font-size: 2.8em;
+    font-style: italic;
+    font-weight: bold;
+    line-height: 1em;
+    width: 80%;
+    margin: 0 auto;
+}
+.content blockquote p {
+    font-family: "Chivo", sans-serif;
+    text-align: center;
+    font-weight: bolder;
 }
