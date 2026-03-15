@@ -18,6 +18,8 @@
 - [] Similar posts based on category
 - [] Next/Prev posts
 - [] Decide on whether the category should be in the header in a black box, or should just always be interview? or?
+- [] Switch interview pill to use Raleway font
+- [] Switch image to be header version, not thumbnail
 
 # Add Pages
 - [] About

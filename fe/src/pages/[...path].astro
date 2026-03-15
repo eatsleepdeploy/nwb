@@ -2,25 +2,31 @@
 import type {SerializedEditorState} from "lexical";
 import {convertLexicalToHTML} from '@payloadcms/richtext-lexical/html'
 import {getPosts, postToPath} from "../lib/postUtils";
-import {imagePathToUrl} from "../lib/mediaUtils";
-import Layout from '../layouts/Layout.astro';
-import {Post} from "../../payload-types";
+import {getImagesForPosts, imagePathToUrl} from "../lib/mediaUtils";
+import Layout from '@layouts/Layout.astro';
+import {Post} from "@root/payload-types";
+import MediaImage from "../components/MediaImage.astro";
 
 
 export async function getStaticPaths() {
-  const parseImages = async (posts: Post[]) => {
-    return Promise.all(posts.map(async(post) => {
-      if (!post.subcontent){
-        return
-      }
-      await Promise.all(post.subcontent?.root.children.map(async (node: any) => {
-        if (node.type === 'upload') {
-          const thisImage = await imagePathToUrl({path: node.value.url, alt: node.value.alt, height: node.value.height, width: node.value.width})
-          node.value.url = thisImage.src
-        }
-      }))
-    }));
-  }
+    const parseImages = async (posts: Post[]) => {
+        return Promise.all(posts.map(async (post) => {
+            if (!post.subcontent) {
+                return
+            }
+            await Promise.all(post.subcontent?.root.children.map(async (node: any) => {
+                if (node.type === 'upload') {
+                    const thisImage = await imagePathToUrl({
+                        path: node.value.url,
+                        alt: node.value.alt,
+                        height: node.value.height,
+                        width: node.value.width
+                    })
+                    node.value.url = thisImage.src
+                }
+            }))
+        }));
+    }
 
     const posts = await getPosts()
     await parseImages(posts)
@@ -37,18 +43,36 @@ export async function getStaticPaths() {
 const generateHTML = (data: SerializedEditorState) => {
     //ToDo: pull out image data
     data.root.children.forEach((node) => {
-      if (node.type === 'upload') {
+        if (node.type === 'upload') {
 
-      }
+        }
     })
-    return convertLexicalToHTML({data, disableContainer:true})
+    return convertLexicalToHTML({data, disableContainer: true})
 };
 
 
 const {post} = Astro.props;
+
+
+const {imagesByAuthorId, imagesByPostId} = await getImagesForPosts([post])
 ---
 
 <Layout>
-  <h1>{post.title}</h1>
-  {post.subcontent && <div class="content" set:html={generateHTML(post.subcontent)}></div>}
+  <div class="px-0 mt-12 bounded py-12 bg-cover flex justify-center md:justify-start"
+       style={{backgroundImage: `url(${imagesByPostId.get(post.id)?.image.src})`}}>
+    <div class="bg-white max-w-7/8 md:max-w-1/2 lg:max-w-2/3 p-8 py-10">
+      <a href="/interviews" class="bg-black text-white uppercase bold open-sans px-2.5 py-1.5 text-sm">Interviews</a>
+      <h1 class="mt-1">{post.title}</h1>
+        {post.author &&
+            <p class="text-xs mt-1 font-bold text-gray-400">
+              <MediaImage class="inline-block rounded-full mr-1"
+                          image={imagesByAuthorId.get(post.author.id)?.image}
+                          style={{width: '30px', height: '30px'}}/>
+                By <span class="text-black">{post.author?.name}</span> </p>}
+    </div>
+  </div>
+  <div class="px-10 mt-12 bounded">
+      {post.subcontent &&
+          <div class="content" set:html={generateHTML(post.subcontent)}></div>}
+  </div>
 </Layout>
