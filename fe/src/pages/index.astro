@@ -4,6 +4,7 @@ import { getImagesForPosts} from "@lib/mediaUtils";
 import {getPosts, postToPath, getPostsWithTags} from "@lib/postUtils";
 import type {Post} from "../../payload-types";
 import MediaImage from "../components/MediaImage.astro";
+import Footer from "../components/Footer.astro";
 
 const posts = await getPosts(6)
 const firstTwoPosts = posts.slice(0, 2)
@@ -146,6 +147,6 @@ const {imagesByAuthorId, imagesByPostId} = await getImagesForPosts(posts)
         }
     </div>
   </div>
-  <div>FOOTER</div>
+  <Footer />
 
 </Layout>

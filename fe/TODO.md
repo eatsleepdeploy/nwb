@@ -15,6 +15,7 @@
 
 # Home Page
 - [] Add Footer
+  - Output tags ordered by connected-post-count.
 
 # Add single post page
 - [] Main content & styling

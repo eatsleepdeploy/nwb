@@ -1,0 +1,42 @@
+---
+import {getTags} from "@lib/tagUtils";
+import type { Tag } from "@root/payload-types";
+import Twitter from "./socials/Twitter.astro";
+import ExternalLink from "./ExternalLink.astro";
+import LinkedIn from "./socials/LinkedIn.astro";
+const tags = await getTags()
+---
+<div class="px-10 my-12 bg-black text-white">
+    <div class="bounded py-6">
+      <div class="flex justify-center md:justify-start my-8 border-spacing-0 md:col-span-10">
+        <h3 class="max-h-full size-override text-white text-[1.8em]">
+          No Wanky<br />Bollocks
+        </h3>
+      </div>
+      <hr class="bg-neutral-quaternary text-gray-500 border-0.5 my-6" />
+      <div class="grid grid-cols-1 md:grid-cols-8 py-4 gap-8">
+        <div class="col-span-2">
+          <h5 class="text-gray-500 mb-2">Check out more</h5>
+          <a class="chivo-heading block text-[1.4em] font-bold uppercase md:leading-none" href="/interviews">Interviews</a>
+          <a class="chivo-heading block text-[1.4em] font-bold uppercase md:leading-none" href="/about">About</a>
+        </div>
+        <div class="col-span-4">
+          <h5 class="text-gray-500 mb-2">Hot right now</h5>
+          {tags.map((tag: Tag) => (
+              <a class="pe-4" href={`/tag/${tag.slug}`}>{tag.title}</a>)
+          )}
+
+        </div>
+        <div class="col-span-2">
+          <h5 class="text-gray-500 mb-2">Follow on</h5>
+          <ExternalLink class="chivo-heading block text-[1.4em] font-bold uppercase flex flex-row items-center gap-2" href="https://twitter.com/NoWankyBollocks">
+            <Twitter /> Twitter
+          </ExternalLink>
+          <ExternalLink class="chivo-heading block text-[1.4em] font-bold uppercase flex flex-row items-center gap-2" href="https://www.linkedin.com/company/nowankybollocks/">
+            <LinkedIn /> LinkedIn
+          </ExternalLink>
+        </div>
+      </div>
+      <hr class="bg-neutral-quaternary text-gray-500 border-0.5 my-8" />
+    </div>
+  </div>
