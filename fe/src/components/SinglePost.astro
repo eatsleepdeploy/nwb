@@ -7,6 +7,7 @@ import Layout from '@layouts/Layout.astro';
 import {Post, Tag} from "@root/payload-types";
 import MediaImage from "../components/MediaImage.astro";
 import {postToPath} from "../lib/postUtils";
+import Footer from "./Footer.astro";
 
 
 const generateHTML = (data: SerializedEditorState) => {
@@ -21,9 +22,11 @@ const generateHTML = (data: SerializedEditorState) => {
 
 
 interface Props {
+    nextPost: Post | null
     post: Post
+    previousPost: Post | null
 }
-const {post} = Astro.props;
+const {nextPost, post, previousPost} = Astro.props;
 const postTags: string[] = post.tags?.map((t: Tag | number) => t.slug).filter((t: string | undefined) => !!t) || [];
 const relatedPosts = await getPostsWithTags(postTags, 6)
 
@@ -73,4 +76,33 @@ const headerImage = await getMainImage(post)
     </div>
 
   </div>
+
+  <div class="bg-brown-grey text-white mt-18">
+    <div class="bounded p-6 py-18 grid grid-cols-2">
+        {previousPost ? (
+                <a href={postToPath(previousPost)}>
+                  <p class="uppercase font-bold">Previous article</p>
+                  <h3 class="size-override md:text-[1.8em] font-normal">{previousPost.title}</h3>
+                </a>
+            ) :
+            (
+                <div></div>
+            )
+        }
+      {nextPost ? (
+                <a class="text-right" href={postToPath(nextPost)}>
+                  <p class="uppercase font-bold">Next article</p>
+                  <h3 class="size-override md:text-[1.8em] font-normal">{nextPost.title}</h3>
+                  <!--<p class="uppercase">Next article</p>-->
+                  <!--<h3>{nextPost.title}</h3>-->
+                </a>
+            ) :
+            (
+                <div></div>
+            )
+        }
+    </div>
+  </div>
+
+  <Footer/>
 </Layout>

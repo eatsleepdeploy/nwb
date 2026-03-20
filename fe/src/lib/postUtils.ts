@@ -18,6 +18,7 @@ export const getPosts = async (limit: number = 10) => {
     const stringifiedQuery = stringify({
         limit,
         depth: 2,
+        sort: '-publishedAt'
     })
     console.log(stringifiedQuery)
     const res = await fetch(`http://localhost:3000/api/posts?${stringifiedQuery}`)

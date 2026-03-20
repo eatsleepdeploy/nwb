@@ -1,11 +1,7 @@
 ---
-import type {SerializedEditorState} from "lexical";
-import {convertLexicalToHTML} from '@payloadcms/richtext-lexical/html'
-import {getPosts, postToPath, postToPublishDate} from "@lib/postUtils";
-import {getMainImage, getThubmnailAndAuthorImages, imagePathToUrl} from "@lib/mediaUtils";
-import Layout from '@layouts/Layout.astro';
+import {getPosts, postToPath} from "@lib/postUtils";
+import {imagePathToUrl} from "@lib/mediaUtils";
 import type {Post} from "@root/payload-types";
-import MediaImage from "@components/MediaImage.astro";
 import SinglePost from "@components/SinglePost.astro";
 
 
@@ -29,18 +25,24 @@ export async function getStaticPaths() {
         }));
     }
 
-    const posts = await getPosts()
+    const posts = await getPosts(Number.MAX_SAFE_INTEGER)
     await parseImages(posts)
-
-    return posts.map((post) => {
+    // let previousPost: Post | null = null;
+    return posts.map((post, i) => {
+        // const thisPreviousPost = previousPost;
+        const previousPost = i > 0 ? posts[i - 1] : null;
+        const nextPost = i < posts.length - 1 ? posts[i + 1] : null;
         return {
             params: {path: postToPath(post)},
-            props: {post},
+            props: {
+                nextPost: previousPost,
+                post,
+                previousPost: nextPost,}
         };
     });
 }
 
-const {post} = Astro.props;
+const {nextPost, post, previousPost} = Astro.props;
 
 ---
-<SinglePost post={post} />
+<SinglePost nextPost={nextPost} post={post} previousPost={previousPost} />

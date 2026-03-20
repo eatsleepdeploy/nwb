@@ -44,6 +44,9 @@ h5 {
     margin-right: auto;
 }
 
+.bg-brown-grey {
+    background-color: #333;
+}
 
 /* CONTENT STYLING */
 .content {

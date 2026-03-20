@@ -4,6 +4,7 @@
   - Boxes & borders
   - Links colours, including mouseover
   - Header scaling
+  - Colours
 - [] Work out how to import from WordPress
   - Need to update things to paginate probably 
 - [] Add favicon
@@ -14,8 +15,7 @@
   - Add metadata title/description
 
 # Add single post page
-- [] Similar posts based on category
-- [] Next/Prev posts
+- [] Share buttons
 - [] Decide on whether the category should be in the header in a black box, or should just always be interview? or?
 - [] Output tags at the bottom of content
 
