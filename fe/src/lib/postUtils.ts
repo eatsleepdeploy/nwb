@@ -35,6 +35,7 @@ export const getPostsWithTags = async (tags: string[], limit: number = 10) => {
         } satisfies Where,
         limit,
         depth: 2,
+        sort: '-publishedAt'
     })
     const res = await fetch(`http://localhost:3000/api/posts?${stringifiedQuery}`)
     const posts: { docs: Post[] } = await res.json()

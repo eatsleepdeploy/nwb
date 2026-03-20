@@ -16,7 +16,6 @@
 
 # Add single post page
 - [] Share buttons
-- [] Decide on whether the category should be in the header in a black box, or should just always be interview? or?
 - [] Output tags at the bottom of content
 
 # Add Pages

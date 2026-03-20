@@ -58,9 +58,13 @@ const headerImage = await getMainImage(post)
         <div class="content mt-4" set:html={generateHTML(post.author.bio)}></div>
       </div>
 
-      <div class="mt-12 bounded">
+      <div class="mt-12">
           {post.subcontent &&
               <div class="content" set:html={generateHTML(post.subcontent)}></div>}
+      </div>
+      <div class="mt-12 mb-18 flex gap-2 flex-wrap justify-center text-white font-bold">
+        <span class="bg-black p-1 px-2 uppercase text-sm">Tags:</span>
+        {post.tags.map((tag) =>(<a href={`/tag/${tag.slug}`} class="bg-gray-400 hover:bg-gray-600 p-1 px-2 uppercase text-sm">{tag.title}</a>))}
       </div>
     </div>
     <div class="col-span-10 md:col-span-3">
@@ -74,7 +78,6 @@ const headerImage = await getMainImage(post)
           </a>))}
       </div>
     </div>
-
   </div>
 
   <div class="bg-brown-grey text-white mt-18">
