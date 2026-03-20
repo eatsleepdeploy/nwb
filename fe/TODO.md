@@ -13,7 +13,6 @@
   - Add metadata title/description
 
 # Add single post page
-- [] author block
 - [] Similar posts based on category
 - [] Next/Prev posts
 - [] Decide on whether the category should be in the header in a black box, or should just always be interview? or?
