@@ -45,7 +45,7 @@ const headerImage = await getMainImage(post)
               By <span class="text-black">{post.author?.name}</span> {postToPublishDate(post)} </p>}
     </div>
   </div>
-  <div class="px-10 mt-16 bounded grid grid-cols-10 items-start">
+  <div class="px-5 mt-16 bounded grid grid-cols-10 items-start gap-6">
     <div class="col-span-10 md:col-span-7">
       <div class="text-center">
         <MediaImage class="inline-block rounded-full"
@@ -55,15 +55,15 @@ const headerImage = await getMainImage(post)
         <div class="content mt-4" set:html={generateHTML(post.author.bio)}></div>
       </div>
 
-      <div class="px-10 mt-12 bounded">
+      <div class="mt-12 bounded">
           {post.subcontent &&
               <div class="content" set:html={generateHTML(post.subcontent)}></div>}
       </div>
     </div>
     <div class="col-span-10 md:col-span-3">
       <h5 class="mb-8"><span class="bg-black text-white px-3 py-2 uppercase">Related Posts</span></h5>
-      <div class="grid grid-cols-2 gap-4">
-          {relatedPosts.map(post => (<a href={postToPath(post)} class="flex flex-col">
+      <div class="grid grid-cols-2 gap-4 gap-y-6">
+          {relatedPosts.map(post => (<a href={postToPath(post)} class="flex flex-col gap-2">
             <MediaImage class="block"
                         image={imagesByPostId.get(post.id)?.image}
             />
