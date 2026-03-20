@@ -5,6 +5,7 @@
   - Links colours, including mouseover
   - Header scaling
 - [] Work out how to import from WordPress
+  - Need to update things to paginate probably 
 - [] Add favicon
 - [] Write up blog post about approach
 - [] Check SEO stuff
