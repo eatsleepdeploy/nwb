@@ -13,9 +13,6 @@
   - Add og: stuff
   - Add metadata title/description
 
-# Add single post page
-- [] Share buttons
-
 # Add Pages
 - [] About
 - [] Add to navigation and update links

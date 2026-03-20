@@ -7,7 +7,11 @@ import Layout from '@layouts/Layout.astro';
 import {Post, Tag} from "@root/payload-types";
 import MediaImage from "../components/MediaImage.astro";
 import {postToPath} from "../lib/postUtils";
-import Footer from "./Footer.astro";
+import Footer from "@components/Footer.astro";
+import Facebook from "@components/socials/Facebook.astro";
+import ExternalLink from "./ExternalLink.astro";
+import Twitter from "./socials/Twitter.astro";
+import Whatsapp from "./socials/Whatsapp.astro";
 
 
 const generateHTML = (data: SerializedEditorState) => {
@@ -50,11 +54,26 @@ const headerImage = await getMainImage(post)
   </div>
   <div class="px-5 mt-16 bounded grid grid-cols-10 items-start gap-6">
     <div class="col-span-10 md:col-span-7">
-      <div class="flex justify-between">
-        <span class="uppercase pt-3 py-2 px-4 bg-black text-white text-lg font-bold">Share this post</span>
-        <div class="inline-block">ADD SHARE BUTTONS HERE</div>
+      <div class="grid grid-cols-2">
+        <div class="col-span-2 md:col-span-1">
+          <span class="inline-block col-span-2 md:col-span-1 uppercase pt-3 py-2 px-4 bg-black text-white text-lg font-bold">Share this post</span>
+        </div>
+        <div class="col-span-2 md:col-span-1 flex flex-row items-center justify-start md:justify-end mt-4 md:mt-0">
+          <ExternalLink href={`https://www.facebook.com/sharer.php?u=https://nowankybollocks.com${Astro.url.pathname}`}
+                        class="inline-block bg-[#003eaaaa] hover:bg-[#003eaa88] p-3">
+            <Facebook />
+          </ExternalLink>
+          <ExternalLink href={`https://twitter.com/intent/tweet?text=${post.title}&url=https://nowankybollocks.com${Astro.url.pathname}`}
+                        class="inline-block bg-[#0693e3aa] hover:bg-[#0693e388] p-3">
+            <Twitter />
+          </ExternalLink>
+          <ExternalLink href={`https://api.whatsapp.com/send?text=${post.title}%20%0A%0A%20https://nowankybollocks.com${Astro.url.pathname}`}
+                        class="inline-block bg-[rgb(113,206,126)] hover:bg-[rgb(113,206,126,.8)] p-3">
+            <Whatsapp />
+          </ExternalLink>
+        </div>
       </div>
-      <hr class="my-10" style={{color: 'rgba(1, 1, 1, 0.2)' }} />
+      <hr class="my-10" style={{color: 'rgba(1, 1, 1, 0.2)'}}/>
       <div class="text-center">
         <MediaImage class="inline-block rounded-full"
                     image={imagesByAuthorId.get(post.author.id)?.image}
@@ -69,7 +88,8 @@ const headerImage = await getMainImage(post)
       </div>
       <div class="mt-12 mb-18 flex gap-2 flex-wrap justify-center text-white font-bold">
         <span class="bg-black p-1 px-2 uppercase text-sm">Tags:</span>
-        {post.tags.map((tag) =>(<a href={`/tag/${tag.slug}`} class="bg-gray-400 hover:bg-gray-600 p-1 px-2 uppercase text-sm">{tag.title}</a>))}
+          {post.tags.map((tag) => (<a href={`/tag/${tag.slug}`}
+                                      class="bg-gray-400 hover:bg-gray-600 p-1 px-2 uppercase text-sm">{tag.title}</a>))}
       </div>
     </div>
     <div class="col-span-10 md:col-span-3">
@@ -97,7 +117,7 @@ const headerImage = await getMainImage(post)
                 <div></div>
             )
         }
-      {nextPost ? (
+        {nextPost ? (
                 <a class="text-right" href={postToPath(nextPost)}>
                   <p class="uppercase font-bold">Next article</p>
                   <h3 class="size-override md:text-[1.8em] font-normal">{nextPost.title}</h3>
