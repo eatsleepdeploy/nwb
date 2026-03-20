@@ -8,7 +8,6 @@
 - [] Work out how to import from WordPress
   - Need to update things to paginate probably 
 - [] Add favicon
-- [] Write up blog post about approach
 - [] Check SEO stuff
   - Add canonical
   - Add og: stuff
@@ -41,3 +40,4 @@
     - With a copy db in D1?
     - Some sort of JSON dump with regex query?
   - Algolia?
+- [] Write up blog post about approach

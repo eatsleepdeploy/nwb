@@ -28,7 +28,7 @@ interface Props {
 }
 const {nextPost, post, previousPost} = Astro.props;
 const postTags: string[] = post.tags?.map((t: Tag | number) => t.slug).filter((t: string | undefined) => !!t) || [];
-const relatedPosts = await getPostsWithTags(postTags, 6)
+const relatedPosts = await getPostsWithTags(postTags, 6, [post.id])
 
 const {imagesByAuthorId, imagesByPostId} = await getThubmnailAndAuthorImages([post, ...relatedPosts])
 const headerImage = await getMainImage(post)

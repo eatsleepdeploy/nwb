@@ -26,11 +26,14 @@ export const getPosts = async (limit: number = 10) => {
     return posts.docs
 }
 
-export const getPostsWithTags = async (tags: string[], limit: number = 10) => {
+export const getPostsWithTags = async (tags: string[], limit: number = 10, exclude_ids: number[] = []) => {
     const stringifiedQuery = stringify({
         where: {
             'tags.slug': {
                 'in': tags
+            },
+            'id': {
+                not_in: exclude_ids
             }
         } satisfies Where,
         limit,
