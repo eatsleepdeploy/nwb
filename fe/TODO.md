@@ -16,7 +16,6 @@
 
 # Add single post page
 - [] Share buttons
-- [] Output tags at the bottom of content
 
 # Add Pages
 - [] About
