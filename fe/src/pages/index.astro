@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { getImagesForPosts} from "@lib/mediaUtils";
+import { getThubmnailAndAuthorImages} from "@lib/mediaUtils";
 import {getPosts, postToPath, getPostsWithTags} from "@lib/postUtils";
 import type {Post} from "@root/payload-types";
 import MediaImage from "@components/MediaImage.astro";
@@ -13,7 +13,7 @@ const agencyLifePosts = await getPostsWithTags(['agencies', 'agency'], 20)
 const bestOfNWBPosts = await getPostsWithTags(['best-of-nwb'], 20)
 const careerDecisionsPosts = await getPostsWithTags(['career', 'career-decisions'], 7)
 
-const {imagesByAuthorId, imagesByPostId} = await getImagesForPosts([
+const {imagesByAuthorId, imagesByPostId} = await getThubmnailAndAuthorImages([
     ...posts,
     ...agencyLifePosts,
     ...bestOfNWBPosts,

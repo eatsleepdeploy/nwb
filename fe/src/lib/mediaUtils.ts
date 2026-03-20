@@ -20,7 +20,7 @@ const reduceImageDataListById = (data: ImageData[]) => data.reduce((acc, curr) =
     return acc
 }, new Map() as Map<number, ImageData>)
 
-export const getImagesForPosts = async (posts: Post[]) => {
+export const getThubmnailAndAuthorImages = async (posts: Post[]) => {
     const imagesAndPosts: ImageData[] = await Promise.all(posts.map(async (post) => {
         if (!post.featuredImage?.sizes.thumbnail) {
             return null;
@@ -50,4 +50,13 @@ export const getImagesForPosts = async (posts: Post[]) => {
     const imagesByPostId = reduceImageDataListById(imagesAndPosts)
     const imagesByAuthorId = reduceImageDataListById(imagesAndAuthors)
     return {imagesByAuthorId, imagesByPostId}
+}
+
+export const getMainImage = async (post: Post) => {
+    return imagePathToUrl({
+        path: post.featuredImage.url,
+        alt: post.featuredImage.alt,
+        height: post.featuredImage.height,
+        width: post.featuredImage.width
+    })
 }

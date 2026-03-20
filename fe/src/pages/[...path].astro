@@ -1,8 +1,8 @@
 ---
 import type {SerializedEditorState} from "lexical";
 import {convertLexicalToHTML} from '@payloadcms/richtext-lexical/html'
-import {getPosts, postToPath, postToPublishDate} from "../lib/postUtils";
-import {getImagesForPosts, imagePathToUrl} from "../lib/mediaUtils";
+import {getPosts, postToPath, postToPublishDate} from "@lib/postUtils";
+import {getMainImage, getThubmnailAndAuthorImages, imagePathToUrl} from "@lib/mediaUtils";
 import Layout from '@layouts/Layout.astro';
 import {Post} from "@root/payload-types";
 import MediaImage from "../components/MediaImage.astro";
@@ -53,12 +53,13 @@ const generateHTML = (data: SerializedEditorState) => {
 
 const {post} = Astro.props;
 
-const {imagesByAuthorId, imagesByPostId} = await getImagesForPosts([post])
+const {imagesByAuthorId} = await getThubmnailAndAuthorImages([post])
+const headerImage = await getMainImage(post)
 ---
 
 <Layout>
   <div class="px-0 lg:pl-6 py-48 big-bounded bg-cover bg-center flex justify-center md:justify-start"
-       style={{backgroundImage: `url(${imagesByPostId.get(post.id)?.image.src})`}}>
+       style={{backgroundImage: `url(${headerImage.src})`}}>
     <div class="bg-white max-w-7/8 md:max-w-2/3 lg:max-w-1/2 p-12">
       <a href="/interviews" class="bg-black text-white uppercase bold open-sans px-2.5 py-1.5 text-sm">Interviews</a>
       <h1 class="mt-1">{post.title}</h1>
@@ -67,9 +68,11 @@ const {imagesByAuthorId, imagesByPostId} = await getImagesForPosts([post])
               <MediaImage class="inline-block rounded-full mr-1"
                           image={imagesByAuthorId.get(post.author.id)?.image}
                           style={{width: '30px', height: '30px'}}/>
-                By <span class="text-black">{post.author?.name}</span> {postToPublishDate(post)} </p>}
+              By <span class="text-black">{post.author?.name}</span> {postToPublishDate(post)} </p>}
     </div>
   </div>
+
+
   <div class="px-10 mt-12 bounded">
       {post.subcontent &&
           <div class="content" set:html={generateHTML(post.subcontent)}></div>}

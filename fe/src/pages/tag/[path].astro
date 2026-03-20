@@ -3,7 +3,7 @@ import Layout from '@layouts/Layout.astro';
 import {postToPath, getPostsWithTags} from "@lib/postUtils";
 import {getTags} from "@lib/tagUtils";
 import {Post, Tag} from "@root/payload-types";
-import {getImagesForPosts} from "@lib/mediaUtils";
+import {getThubmnailAndAuthorImages} from "@lib/mediaUtils";
 import MediaImage from "@components/MediaImage.astro";
 
 
@@ -21,7 +21,7 @@ export async function getStaticPaths() {
 
 const {tag} = Astro.props;
 const posts = await getPostsWithTags([tag.slug])
-const {imagesByAuthorId, imagesByPostId} = await getImagesForPosts(posts)
+const {imagesByAuthorId, imagesByPostId} = await getThubmnailAndAuthorImages(posts)
 ---
 
 <Layout title="Home">

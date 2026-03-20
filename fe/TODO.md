@@ -1,9 +1,8 @@
 # General
-- [] Setup and map colours for:
-  - Text
+- [] Setup general CSS for:
+  - Font
   - Boxes & borders
-  - Bottom black Background
-  - Links, including mouseover
+  - Links colours, including mouseover
   - Header scaling
 - [] Work out how to import from WordPress
 - [] Add favicon
@@ -14,11 +13,10 @@
   - Add metadata title/description
 
 # Add single post page
+- [] author block
 - [] Similar posts based on category
 - [] Next/Prev posts
 - [] Decide on whether the category should be in the header in a black box, or should just always be interview? or?
-- [] Switch interview pill to use Raleway font
-- [] Switch image to be header version, not thumbnail
 - [] Output tags at the bottom of content
 
 # Add Pages
