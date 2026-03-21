@@ -13,10 +13,6 @@
   - Add og: stuff
   - Add metadata title/description
 
-# Add Pages
-- [] About
-- [] Add to navigation and update links
-
 # Add Interviews page
 - [] Make functional
 - [] Style

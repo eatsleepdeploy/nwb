@@ -40,17 +40,19 @@ const headerImage = await getMainImage(post)
 ---
 
 <Layout>
-  <div class="px-0 lg:pl-6 py-48 big-bounded bg-cover bg-center flex justify-center md:justify-start"
+  <div class="px-0 lg:pl-6 py-48 bg-cover bg-center flex justify-center md:justify-start w-full"
        style={{backgroundImage: `url(${headerImage.src})`}}>
-    <div class="bg-white max-w-7/8 md:max-w-2/3 lg:max-w-1/2 p-12">
-      <a href="/interviews" class="bg-black text-white uppercase bold open-sans px-2.5 py-1.5 text-sm">Interviews</a>
-      <h1 class="mt-1">{post.title}</h1>
+    <div class="bounded w-full">
+      <div class="bg-white max-w-7/8 md:max-w-2/3 lg:max-w-1/2 p-12">
+        <a href="/interviews" class="bg-black text-white uppercase bold open-sans px-2.5 py-1.5 text-sm">Interviews</a>
+        <h1 class="mt-1">{post.title}</h1>
         {post.author &&
             <p class="text-xs mt-1 font-bold text-gray-400">
               <MediaImage class="inline-block rounded-full mr-1"
                           image={imagesByAuthorId.get(post.author.id)?.image}
                           style={{width: '30px', height: '30px'}}/>
               By <span class="text-black">{post.author?.name}</span> {postToPublishDate(post)} </p>}
+      </div>
     </div>
   </div>
   <div class="px-5 mt-16 bounded grid grid-cols-10 items-start gap-6">
