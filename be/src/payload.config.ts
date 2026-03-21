@@ -10,6 +10,7 @@ import { Media } from './collections/Media'
 import {Posts} from "@/collections/Posts";
 import {Authors} from "@/collections/Authors";
 import {Tags} from "@/collections/Tags";
+import {Pages} from "@/collections/Pages";
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -21,7 +22,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Posts, Authors, Tags],
+  collections: [Users, Media, Posts, Authors, Tags, Pages],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

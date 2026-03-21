@@ -5,6 +5,7 @@ import {getTags} from "@lib/tagUtils";
 import {Post, Tag} from "@root/payload-types";
 import {getThubmnailAndAuthorImages} from "@lib/mediaUtils";
 import MediaImage from "@components/MediaImage.astro";
+import Footer from "@components/Footer.astro";
 
 
 export async function getStaticPaths() {
@@ -25,7 +26,7 @@ const {imagesByAuthorId, imagesByPostId} = await getThubmnailAndAuthorImages(pos
 ---
 
 <Layout title="Home">
-  <div hidden={posts.length == 0} class="px-10 my-12 bounded bg-white">
+  <div class="px-10 my-12 bounded bg-white flex-grow">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-2">
       <div class="flex items-end my-8 mb-16 border-spacing-0 md:col-span-2 justify-center ">
         <h3 class="max-h-full size-override text-white text-[1.8em] uppercase bg-black px-4 py-2 ">
@@ -51,6 +52,6 @@ const {imagesByAuthorId, imagesByPostId} = await getThubmnailAndAuthorImages(pos
         }
     </div>
   </div>
-  <div>FOOTER</div>
+  <Footer />
 
 </Layout>

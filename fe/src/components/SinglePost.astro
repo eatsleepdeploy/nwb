@@ -2,7 +2,7 @@
 import type {SerializedEditorState} from "lexical";
 import {convertLexicalToHTML} from '@payloadcms/richtext-lexical/html'
 import {postToPublishDate, getPostsWithTags} from "@lib/postUtils";
-import {getMainImage, getThubmnailAndAuthorImages} from "@lib/mediaUtils";
+import {getMainImage, getThubmnailAndAuthorImages, parseImagesFromContent} from "@lib/mediaUtils";
 import Layout from '@layouts/Layout.astro';
 import {Post, Tag} from "@root/payload-types";
 import MediaImage from "../components/MediaImage.astro";
@@ -15,12 +15,6 @@ import Whatsapp from "./socials/Whatsapp.astro";
 
 
 const generateHTML = (data: SerializedEditorState) => {
-    //ToDo: pull out image data
-    data.root.children.forEach((node) => {
-        if (node.type === 'upload') {
-
-        }
-    })
     return convertLexicalToHTML({data, disableContainer: true})
 };
 
@@ -31,6 +25,13 @@ interface Props {
     previousPost: Post | null
 }
 const {nextPost, post, previousPost} = Astro.props;
+if (post.subcontent) {
+  await parseImagesFromContent(post.subcontent)
+}
+if (post.author.bio) {
+  await parseImagesFromContent(post.author.bio)
+}
+
 const postTags: string[] = post.tags?.map((t: Tag | number) => t.slug).filter((t: string | undefined) => !!t) || [];
 const relatedPosts = await getPostsWithTags(postTags, 6, [post.id])
 

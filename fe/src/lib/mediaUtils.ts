@@ -1,6 +1,7 @@
 import {getImage} from "astro:assets";
 import type {Image} from "@lib/types";
 import type {Post} from "@root/payload-types.ts";
+import type {SerializedEditorState} from "lexical";
 
 type ImagePathToUrlArgs = { path: string, alt: string, height?: number, width?: number }
 export const imagePathToUrl = async ({path, alt, height, width}: ImagePathToUrlArgs): Promise<Image> => {
@@ -59,4 +60,19 @@ export const getMainImage = async (post: Post) => {
         height: post.featuredImage.height,
         width: post.featuredImage.width
     })
+}
+
+
+export const parseImagesFromContent = (content: SerializedEditorState) => {
+    return Promise.all(content.root.children.map(async (node: any) => {
+        if (node.type === 'upload') {
+            const thisImage = await imagePathToUrl({
+                path: node.value.url,
+                alt: node.value.alt,
+                height: node.value.height,
+                width: node.value.width
+            })
+            node.value.url = thisImage.src
+        }
+    }))
 }

@@ -1,0 +1,21 @@
+---
+import SinglePage from "@components/SinglePage.astro";
+import {getPages} from "@lib/pageUtils";
+
+
+export async function getStaticPaths() {
+    const pages = await getPages(Number.MAX_SAFE_INTEGER)
+    return pages.map((page) => {
+        return {
+            params: {path: `/${page.slug}`},
+            props: {
+                page,
+            }
+        };
+    });
+}
+
+const {page} = Astro.props;
+
+---
+<SinglePage page={page}/>

@@ -1,0 +1,34 @@
+---
+import type {SerializedEditorState} from "lexical";
+import {convertLexicalToHTML} from '@payloadcms/richtext-lexical/html'
+import {parseImagesFromContent} from "@lib/mediaUtils";
+import Layout from '@layouts/Layout.astro';
+import type {Page} from "@root/payload-types";
+import Footer from "@components/Footer.astro";
+
+
+const generateHTML = (data: SerializedEditorState) => {
+    return convertLexicalToHTML({data, disableContainer: true})
+};
+
+
+interface Props {
+  page: Page
+}
+const {page} = Astro.props;
+if (page.content) {
+  await parseImagesFromContent(page.content)
+}
+---
+
+<Layout>
+  <div class="px-5 my-16 bounded items-start flex-grow">
+    <div class="col-span-10 md:col-span-7">
+      <div class="mt-12 px-12">
+          {page.content &&
+              <div class="content" set:html={generateHTML(page.content)}></div>}
+      </div>
+    </div>
+  </div>
+  <Footer/>
+</Layout>

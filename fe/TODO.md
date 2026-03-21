@@ -17,6 +17,10 @@
 - [] About
 - [] Add to navigation and update links
 
+# Add Interviews page
+- [] Make functional
+- [] Style
+
 # Comments
 - [] Figure out a worker setup to store them
 - [] Add in email notifications
@@ -38,3 +42,4 @@
     - Some sort of JSON dump with regex query?
   - Algolia?
 - [] Write up blog post about approach
+- [] work out save draft/publish published at bug
