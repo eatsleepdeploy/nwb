@@ -26,7 +26,7 @@ const firstThreePosts = page.data.slice(0, 3)
 const remainingPosts = page.data.slice(3)
 const {imagesByAuthorId, imagesByPostId} = await getThubmnailAndAuthorImages(page.data)
 ---
-<Layout>
+<Layout title="Interviews">
   {page.currentPage == 1 && (
     <div class="bounded bg-black text-white px-12 pb-12">
       <h1 class="block text-center my-8">Interviews</h1>

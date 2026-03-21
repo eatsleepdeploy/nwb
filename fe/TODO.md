@@ -13,9 +13,6 @@
   - Add og: stuff
   - Add metadata title/description
 
-# Tags listing page:
-- [] Pagination
-
 # Comments
 - [] Figure out a worker setup to store them
 - [] Add in email notifications
@@ -25,7 +22,7 @@
 - [] Add "most popular" to interviews page
 
 # Deployment
-- [] Setup file-publishing
+- [] Setup Cloudflare deployment
 - [] Setup editing environment for KT
 - [] Database backups - point at D1?
 
