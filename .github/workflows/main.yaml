@@ -1,0 +1,62 @@
+name: Frontend
+
+on:
+  push:
+    branches:
+      - "main"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  IMAGE_NAME: ${{ github.repository_owner }}/nwb
+  IMAGE_ID: ghcr.io/${{ github.repository_owner }}/nwb
+  PINNED_IMAGE_ID: ghcr.io/${{ github.repository_owner }}/nwb:${{ github.sha }}
+  NODE_OPTIONS: "--max-old-space-size=6144"
+
+
+jobs:
+  build:
+    name: "Build"
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Cache FE Node Deps
+        id: cache-node-deps
+        uses: actions/cache@v4
+        with:
+          path: fe/node_modules
+          key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm
+
+      - name: Cache BE Node Deps
+        id: cache-node-deps
+        uses: actions/cache@v4
+        with:
+          path: be/node_modules
+          key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm
+
+      - name: Log in to registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push docker image
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: "${{ env.IMAGE_ID }}:latest,${{ env.PINNED_IMAGE_ID }}"
+          cache-from: type=registry,ref=${{ env.IMAGE_ID }}:latest
+          cache-to: type=registry,ref=${{ env.IMAGE_ID }}:latest
+          file: Dockerfile
