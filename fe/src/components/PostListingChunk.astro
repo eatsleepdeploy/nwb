@@ -1,0 +1,32 @@
+---
+import type {Post} from "@root/payload-types";
+import {postToPath} from "@lib/postUtils";
+import MediaImage from "./MediaImage.astro";
+import {getThubmnailAndAuthorImages} from "@lib/mediaUtils";
+
+
+interface Props {
+  posts: Post[]
+}
+const {posts} = Astro.props;
+const {imagesByAuthorId, imagesByPostId} = await getThubmnailAndAuthorImages(posts)
+---
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-2">
+    {
+        posts.map((post: Post, i: number) => (
+            <a href={postToPath(post)} class="flex flex-col gap-3 md:flex-row align-middle">
+                <MediaImage image={imagesByPostId.get(post.id)?.image} class="max-w-full md:max-w-1/2 h-max" />
+                <div class="flex flex-col flex-1 overflow-hidden justify-start">
+                  <h3 class="size-override text-[1.6em] md:text-[1.8em] lg:text-[2.5em] break-words">{post.title}</h3>
+                  <p class="text-sm mt-1 mb-0">{post.excerpt}</p>
+                    {post.author &&
+                        <p class="text-sm mt-1 font-bold">
+                          <MediaImage class="inline-block rounded-full mr-2"
+                                      image={imagesByAuthorId.get(post.author.id)?.image}
+                                      style={{width: '20px', height: '20px'}}/>
+                            {post.author?.name}</p>}
+                </div>
+              </a>
+        ))
+    }
+</div>

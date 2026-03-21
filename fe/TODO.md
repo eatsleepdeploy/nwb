@@ -13,9 +13,8 @@
   - Add og: stuff
   - Add metadata title/description
 
-# Add Interviews page
+# Tags listing page:
 - [] Pagination
-  - Add this to tags listing page too 
 
 # Comments
 - [] Figure out a worker setup to store them

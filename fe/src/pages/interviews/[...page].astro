@@ -1,0 +1,69 @@
+---
+import Layout from "@layouts/Layout.astro";
+import type {Post} from "@root/payload-types";
+import {getThubmnailAndAuthorImages} from "@lib/mediaUtils";
+import {getPosts, postToPath} from "@lib/postUtils";
+import MediaImage from "@components/MediaImage.astro";
+import Footer from "@components/Footer.astro";
+import Paginator from "@components/Paginator.astro";
+import PostListingChunk from "@components/PostListingChunk.astro";
+import type {Page, PaginateFunction} from "astro";
+
+export const getStaticPaths = async ({ paginate }: {paginate: PaginateFunction}) =>{
+  const posts = await getPosts(Number.MAX_SAFE_INTEGER)
+
+  // Generate pages from our array of astronauts, with 2 to a page
+  return paginate(posts, { pageSize: 20 });
+}
+interface Props {
+  page: Page<Post>
+}
+// All paginated data is passed on the "page" prop
+const { page } = Astro.props;
+
+
+const firstThreePosts = page.data.slice(0, 3)
+const remainingPosts = page.data.slice(3)
+const {imagesByAuthorId, imagesByPostId} = await getThubmnailAndAuthorImages(page.data)
+---
+<Layout>
+  {page.currentPage == 1 && (
+    <div class="bounded bg-black text-white px-12 pb-12">
+      <h1 class="block text-center my-8">Interviews</h1>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+          {
+              firstThreePosts.map((post: Post, i: number) => (
+                  <a href={postToPath(post)} class="flex flex-col h-auto gap-4">
+                    <MediaImage class="flex-1 max-w-full justify-center"
+                                image={imagesByPostId.get(post.id)?.image}
+                                style={{height: 'fit-content'}}/>
+                    <div class="flex flex-col flex-1 overflow-hidden justify-start text-white">
+                      <h3 class="size-override text-[1.6em] break-words">{post.title}</h3>
+                        {post.author &&
+                            <p class="text-sm mt-1 font-bold">
+                              <MediaImage class="inline-block rounded-full mr-2"
+                                          image={imagesByAuthorId.get(post.author.id)?.image}
+                                          style={{width: '20px', height: '20px'}}/>
+                                {post.author?.name}</p>}
+                    </div>
+                  </a>
+              ))
+          }
+      </div>
+    </div>
+  )}
+
+  {page.currentPage > 1 && (
+    <div class="bounded p-12 mt-8">
+      <h1 class="block bg-black text-white text-center p-2 uppercase">Interviews</h1>
+    </div>
+  )}
+
+  <div class="px-10 my-12 mb-18 bounded bg-white flex-grow">
+    <PostListingChunk posts={page.currentPage == 1 ? remainingPosts : page.data} />
+  </div>
+
+  <Paginator page={page} class="mb-24" />
+
+  <Footer />
+</Layout>

@@ -12,6 +12,34 @@ export default defineConfig({
       status: 301,
       destination: "/interviews"
     },
+    "/interviews/page/2": {
+      status: 301,
+      destination: "/interviews/2"
+    },
+    "/interviews/page/3": {
+      status: 301,
+      destination: "/interviews/3"
+    },
+    "/interviews/page/4": {
+      status: 301,
+      destination: "/interviews/4"
+    },
+    "/interviews/page/5": {
+      status: 301,
+      destination: "/interviews/5"
+    },
+    "/interviews/page/6": {
+      status: 301,
+      destination: "/interviews/6"
+    },
+    "/interviews/page/7": {
+      status: 301,
+      destination: "/interviews/7"
+    },
+    "/interviews/page/8": {
+      status: 301,
+      destination: "/interviews/8"
+    },
   },
   vite: {
     plugins: [tailwindcss()],

@@ -1,0 +1,33 @@
+---
+import type {Page} from "astro";
+interface Props {
+    page: Page,
+    class?: string
+}
+const {page, class: kls} = Astro.props
+const prevPageNumber = page.currentPage - 1;
+const nextPageNumber = page.currentPage + 1;
+const showLastPage = nextPageNumber != page.lastPage && page.currentPage != page.lastPage
+
+const padding = "font-bold py-2 px-3"
+---
+
+<div class="flex flex-row justify-between bounded w-full px-18" class:list={[kls, {kls: !!kls}]}>
+  <div>
+      {page.url.prev && (<a href={`${page.url.prev}`} class={`bg-gray-300 ${padding}`}>&lt;</a>)}
+      {page.currentPage > 1 && (<a href={`${page.url.first}`} class={`bg-gray-300 ${padding}`}>1</a>)}
+    {prevPageNumber > 2 && (<span class={padding}>...</span>)}
+    {page.currentPage == page.lastPage  && page.lastPage > 3 && (
+          <a href={`${page.url.next}`} class={`bg-gray-300 ${padding}`}>{prevPageNumber - 1}</a>)}
+    {prevPageNumber > 1 && (<a href={`${page.url.prev}`} class={`bg-gray-300 ${padding}`}>{prevPageNumber}</a>)}
+    <a href={`${page.url.current}`} class={`bg-black text-white ${padding}`}>{page.currentPage}</a>
+      {nextPageNumber <= page.lastPage && (
+          <a href={`${page.url.next}`} class={`bg-gray-300 ${padding}`}>{nextPageNumber}</a>)}
+      {page.currentPage == 1 && page.lastPage > 3 && (
+          <a href={`${page.url.next}`} class={`bg-gray-300 ${padding}`}>{nextPageNumber + 1}</a>)}
+      {nextPageNumber < page.lastPage - 1 && (<span class={padding}>...</span>)}
+      {showLastPage && (<a href={`${page.url.last}`} class={`bg-gray-300 ${padding}`}>{page.lastPage}</a>)}
+      {page.url.next && (<a href={`${page.url.next}`} class={`bg-gray-300 ${padding}`}>&gt;</a>)}
+  </div>
+  <span class="font-bold text-gray-500">Page {page.currentPage} of {page.lastPage}</span>
+</div>
