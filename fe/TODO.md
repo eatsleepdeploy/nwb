@@ -14,8 +14,8 @@
   - Add metadata title/description
 
 # Add Interviews page
-- [] Make functional
-- [] Style
+- [] Pagination
+  - Add this to tags listing page too 
 
 # Comments
 - [] Figure out a worker setup to store them
@@ -23,6 +23,7 @@
 - [] Figure out a cron sync to pull them through to payload
 - [] Add "Hot right now" section to homepage
   - Ordered by number of comments - needs comme
+- [] Add "most popular" to interviews page
 
 # Deployment
 - [] Setup file-publishing
