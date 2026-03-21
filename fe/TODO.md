@@ -23,7 +23,15 @@
 
 # Deployment
 - [] Setup Cloudflare deployment
+  - Setup new pages project
+  - Setup docker compose to run on PI
+  - Setup docker image building to github, pull on PI as latest image, include both FE and BE code.
+  - Add an `afterChange` trigger to all the places to run a redeploy script
+  - Deploy to temp subdomain first to test out, ensure robots.txt DENY all
 - [] Setup editing environment for KT
+  - Run BE as a docker pod
+  - Run FE on same pod on different port
+  - Run tailscale service for each
 - [] Database backups - point at D1?
 
 # Post-1st-deploy
