@@ -61,6 +61,6 @@ jobs:
         with:
           push: true
           tags: "${{ env.IMAGE_ID }}:latest,${{ env.PINNED_IMAGE_ID }}"
-          cache-from: type=registry,ref=${{ env.IMAGE_ID }}:latest,mode=max
-          cache-to: type=registry,ref=${{ env.IMAGE_ID }}:latest,mode=max
+          cache-from: type=registry,ref=${{ env.IMAGE_ID }}:cache,mode=max
+          cache-to: type=registry,ref=${{ env.IMAGE_ID }}:cache,mode=max
           file: Dockerfile
