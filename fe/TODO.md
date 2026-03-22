@@ -22,7 +22,7 @@
 # Deployment
 - [] Setup Cloudflare deployment
   - Setup new pages project
-  - Add an `afterChange` trigger to all the places to run a redeploy script
+  - Add an `afterChange` trigger to all the places to run a deploy post build
   - Confirm the deploy looks ok
 - [] Setup editing environment for KT
   - enable live editing
@@ -39,3 +39,4 @@
 - [] work out save draft/publish published at bug
 - [] Switch to use `npm run preview` for pi env with auto-build triggers on save
   - work out how to get it to include drafts on preview 
+- [] Ad debounce to build/deploy afterChange in case of build updates
