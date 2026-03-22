@@ -1,12 +1,13 @@
 services:
-  be:
-    container_name: backend
+  main:
+    container_name: main
     image: "nwb:latest"
     ports:
       - 3000:3000
+      - 4321:4321
     volumes:
-#      - /home/jason/nwb/nwb.db:/usr/src/app/be/nwb.db
-      - /Users/jasonkelly/Projects/nwb/be/nwb.db:/usr/src/app/be/nwb.db
+      - /home/jason/nwb/nwb.db:/usr/src/app/be/nwb.db
+#      - /Users/jasonkelly/Projects/nwb/be/nwb.db:/usr/src/app/be/nwb.db
     restart: unless-stopped
     privileged: false  # Might need to turn this on, worry later if things don't work
     environment:

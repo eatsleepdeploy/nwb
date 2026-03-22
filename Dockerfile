@@ -13,5 +13,7 @@ WORKDIR /usr/src/app/be
 RUN npm i
 RUN npm run build
 
+WORKDIR /usr/src/app
+COPY docker_run.sh .
 EXPOSE 3000
-CMD ["npm", "run", "start"]
+CMD ["sh", "docker_run.sh"]
