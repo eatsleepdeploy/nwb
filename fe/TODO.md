@@ -7,9 +7,7 @@
   - Colours
 - [] Work out how to import from WordPress
   - Need to update things to paginate probably 
-- [] Add favicon
 - [] Check SEO stuff
-  - Add canonical
   - Add og: stuff
   - Add metadata title/description
 
@@ -27,9 +25,7 @@
   - Add an `afterChange` trigger to all the places to run a redeploy script
   - Confirm the deploy looks ok
 - [] Setup editing environment for KT
-  - Run BE as a docker pod
-  - Run FE on same pod on different port
-  - Run tailscale service for each
+  - enable live editing
 
 # Post-1st-deploy
 - [] Add a listing page for all tags (why not, SEO)
