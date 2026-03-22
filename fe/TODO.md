@@ -44,3 +44,5 @@
   - Algolia?
 - [] Write up blog post about approach
 - [] work out save draft/publish published at bug
+- [] Switch to use `npm run preview` for pi env with auto-build triggers on save
+  - work out how to get it to include drafts on preview 
