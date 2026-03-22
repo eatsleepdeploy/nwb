@@ -18,9 +18,9 @@ export const getPosts = async (limit: number = 10) => {
     const stringifiedQuery = stringify({
         limit,
         depth: 2,
-        sort: '-publishedAt'
+        sort: '-publishedAt',
+        draft: process.env.IS_PREVIEW === 'true',
     })
-    console.log(stringifiedQuery)
     const res = await fetch(`http://localhost:3000/api/posts?${stringifiedQuery}`)
     const posts: { docs: Post[] } = await res.json()
     return posts.docs
@@ -34,8 +34,9 @@ export const getPostsWithTags = async (tags: string[], limit: number = 10, exclu
             },
             'id': {
                 not_in: exclude_ids
-            }
+            },
         } satisfies Where,
+        draft: process.env.IS_PREVIEW === 'true',
         limit,
         depth: 2,
         sort: '-publishedAt'

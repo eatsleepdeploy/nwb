@@ -5,8 +5,9 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
+    "preview": "astro --outDir dist-preview preview",
+    "astro": "astro",
+    "build-for-preview": "IS_PREVIEW=true astro --outDir dist-preview build"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^13.1.3",

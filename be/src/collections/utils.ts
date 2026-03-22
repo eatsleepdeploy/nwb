@@ -21,7 +21,5 @@ export const setPublished: FieldHook<Post> = ({value, data}) => {
     if (value) {
         return value;
     }
-    if (data?._status == 'published') {
-        return data.updatedAt;
-    }
+    return data?.updatedAt || new Date();
 };

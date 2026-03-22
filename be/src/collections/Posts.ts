@@ -1,5 +1,7 @@
-import type {CollectionConfig} from 'payload'
+import {exec} from 'child_process'
+import {CollectionConfig} from 'payload'
 import {populateSlug, setPublished} from "@/collections/utils";
+import {Post} from "@/payload-types";
 
 export const Posts: CollectionConfig = {
     slug: 'posts',
@@ -7,21 +9,17 @@ export const Posts: CollectionConfig = {
         useAsTitle: 'title',
     },
     versions: {drafts: true},
-
-    access: {
-        read: ({req}) => {
-            // If there is a user logged in,
-            // let them retrieve all documents
-            if (req.user) return true
-
-            // If there is no user,
-            // restrict the documents that are returned
-            // to only those where `_status` is equal to `published`
-            return {
-                _status: {
-                    equals: 'published',
-                },
+    hooks: {
+        afterChange: [
+            ({doc}: { doc: Post }) => {
+                exec('./build.sh')
+                return doc
             }
+        ]
+    },
+    access: {
+        read: () => {
+            return true
         },
     },
     fields: [
