@@ -7,11 +7,13 @@ services:
       - 4321:4321
     volumes:
       - /home/jason/nwb/nwb.db:/usr/src/app/be/nwb.db
+      - /home/jason/nwb/media:/usr/src/app/be/media
 #      - /Users/jasonkelly/Projects/nwb/be/nwb.db:/usr/src/app/be/nwb.db
     restart: unless-stopped
     privileged: false  # Might need to turn this on, worry later if things don't work
     environment:
       DATABASE_URL: file:///usr/src/app/be/nwb.db
       HOST: "0.0.0.0"
+      PAYLOAD_SECRET: 'D7A4BB51-7099-49BA-A9D5-D6C73B54C6D1'
     extra_hosts:
       - 'host.docker.internal:host-gateway'
