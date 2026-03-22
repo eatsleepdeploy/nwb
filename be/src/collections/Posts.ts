@@ -13,6 +13,7 @@ export const Posts: CollectionConfig = {
         afterChange: [
             ({doc}: { doc: Post }) => {
                 exec('./build.sh')
+                console.log('STATUS:: ' + doc._status)
                 return doc
             }
         ]
