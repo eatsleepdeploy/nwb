@@ -1,7 +1,7 @@
 services:
   main:
     container_name: main
-    image: "nwb:latest"
+    image: "ghcr.io/eatsleepdeploy/nwb:latest"
     ports:
       - 3000:3000
       - 4321:4321
