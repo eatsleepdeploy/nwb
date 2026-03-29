@@ -12,12 +12,19 @@
   - Add metadata title/description
 
 # Comments
-- [] Figure out a worker setup to store them
-- [] Figure out a cron sync to pull them through to payload
+- [] Setup a worker to receive comment posts
+  - Store in D1
+  - current path | content | name | email | website
+  - Check with akismet
+  - Ensure whatever cloudflare bot-protections work.
+- [] Add a job to pull from cloudflare
+  - Run every few hours
+  - Store in local DB - dedupe based on post and store the D1 id in the local DB so no dupes
+  - Update D1 to say already gotten to filter out of next sync
+  - Trigger an email notification to KT if new comments
 - [] Add "Hot right now" section to homepage
   - Ordered by number of comments - needs comme
 - [] Add "most popular" to interviews page
-- [] Add in email notifications
 
 # Deployment
 - [] Setup Cloudflare deployment
