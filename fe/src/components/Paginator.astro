@@ -29,5 +29,5 @@ const padding = "font-bold py-2 px-3"
       {showLastPage && (<a href={`${page.url.last}`} class={`bg-gray-300 ${padding}`}>{page.lastPage}</a>)}
       {page.url.next && (<a href={`${page.url.next}`} class={`bg-gray-300 ${padding}`}>&gt;</a>)}
   </div>
-  <span class="font-bold text-gray-500">Page {page.currentPage} of {page.lastPage}</span>
+  <span class="text-gray-500">Page {page.currentPage} of {page.lastPage}</span>
 </div>
