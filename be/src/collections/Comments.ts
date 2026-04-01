@@ -1,6 +1,8 @@
+import crypto from 'crypto';
 import {exec} from 'child_process'
 import {CollectionConfig} from 'payload'
- import {Post} from "@/payload-types";
+import {Comment} from "@/payload-types";
+
 
 export const Comments: CollectionConfig = {
     slug: 'comments',
@@ -9,10 +11,22 @@ export const Comments: CollectionConfig = {
     },
     versions: {drafts: false},
     hooks: {
+        beforeChange: [
+            async ({data, originalDoc}: { data: Partial<Comment>, originalDoc: Comment | undefined }) => {
+                const email = data.commenterEmail || originalDoc?.commenterEmail
+                if (!email) {
+                    return data
+                }
+                const hash = crypto.createHash('sha256')
+                   .update(email.toLowerCase().trim())
+                   .digest('hex');
+                data.commenterAvatar = `https://gravatar.com/avatar/${hash}.jpg?d=mp`
+                return data
+            }
+        ],
         afterChange: [
-            ({doc}: { doc: Post }) => {
+            ({doc}: { doc: Comment }) => {
                 exec('./build.sh')
-                console.log('STATUS:: ' + doc._status)
                 return doc
             }
         ],
