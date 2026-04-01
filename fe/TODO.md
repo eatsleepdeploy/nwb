@@ -22,6 +22,7 @@
   - Store in local DB - dedupe based on post and store the D1 id in the local DB so no dupes
   - Update D1 to say already gotten to filter out of next sync
   - Trigger an email notification to KT if new comments
+- [] Add a hook to comment save to pull Gravatar and set to url field
 - [] Add "Hot right now" section to homepage
   - Ordered by number of comments - needs comme
 - [] Add "most popular" to interviews page
