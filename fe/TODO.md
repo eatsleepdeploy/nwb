@@ -12,6 +12,7 @@
   - Add metadata title/description
 
 # Comments
+- [] Output comments on the post
 - [] Setup a worker to receive comment posts
   - Store in D1
   - current path | content | name | email | website
