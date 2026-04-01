@@ -295,11 +295,11 @@ export interface Comment {
   commenterName: string;
   commenterWebsite?: string | null;
   commenterAvatar?: string | null;
+  visible?: boolean | null;
   post: number | Post;
   parent?: (number | null) | Comment;
   updatedAt: string;
   createdAt: string;
-  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -521,11 +521,11 @@ export interface CommentsSelect<T extends boolean = true> {
   commenterName?: T;
   commenterWebsite?: T;
   commenterAvatar?: T;
+  visible?: T;
   post?: T;
   parent?: T;
   updatedAt?: T;
   createdAt?: T;
-  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

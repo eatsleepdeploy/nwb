@@ -2,6 +2,7 @@
 import type {SerializedEditorState} from "lexical";
 import {convertLexicalToHTML} from '@payloadcms/richtext-lexical/html'
 import {postToPublishDate, getPostsWithTags} from "@lib/postUtils";
+import {getComments} from "@lib/commentUtils";
 import {getMainImage, getThubmnailAndAuthorImages, parseImagesFromContent} from "@lib/mediaUtils";
 import Layout from '@layouts/Layout.astro';
 import {Post, Tag} from "@root/payload-types";
@@ -12,6 +13,7 @@ import Facebook from "@components/socials/Facebook.astro";
 import ExternalLink from "./ExternalLink.astro";
 import Twitter from "./socials/Twitter.astro";
 import Whatsapp from "./socials/Whatsapp.astro";
+import {commentToCreatedDate} from "../lib/commentUtils";
 
 
 const generateHTML = (data: SerializedEditorState) => {
@@ -26,10 +28,10 @@ interface Props {
 }
 const {nextPost, post, previousPost} = Astro.props;
 if (post.subcontent) {
-  await parseImagesFromContent(post.subcontent)
+    await parseImagesFromContent(post.subcontent)
 }
 if (post.author.bio) {
-  await parseImagesFromContent(post.author.bio)
+    await parseImagesFromContent(post.author.bio)
 }
 
 const postTags: string[] = post.tags?.map((t: Tag | number) => t.slug).filter((t: string | undefined) => !!t) || [];
@@ -37,6 +39,7 @@ const relatedPosts = await getPostsWithTags(postTags, 6, [post.id])
 
 const {imagesByAuthorId, imagesByPostId} = await getThubmnailAndAuthorImages([post, ...relatedPosts])
 const headerImage = await getMainImage(post)
+const comments = await getComments(post)
 ---
 
 <Layout title={post.title}>
@@ -46,12 +49,12 @@ const headerImage = await getMainImage(post)
       <div class="bg-white max-w-7/8 md:max-w-2/3 lg:max-w-1/2 p-12">
         <a href="/interviews" class="bg-black text-white uppercase bold open-sans px-2.5 py-1.5 text-sm">Interviews</a>
         <h1 class="mt-1">{post.title}</h1>
-        {post.author &&
-            <p class="text-xs mt-1 font-bold text-gray-400">
-              <MediaImage class="inline-block rounded-full mr-1"
-                          image={imagesByAuthorId.get(post.author.id)?.image}
-                          style={{width: '30px', height: '30px'}}/>
-              By <span class="text-black">{post.author?.name}</span> {postToPublishDate(post)} </p>}
+          {post.author &&
+              <p class="text-xs mt-1 font-bold text-gray-400">
+                <MediaImage class="inline-block rounded-full mr-1"
+                            image={imagesByAuthorId.get(post.author.id)?.image}
+                            style={{width: '30px', height: '30px'}}/>
+                By <span class="text-black">{post.author?.name}</span> {postToPublishDate(post)} </p>}
       </div>
     </div>
   </div>
@@ -59,20 +62,23 @@ const headerImage = await getMainImage(post)
     <div class="col-span-10 md:col-span-7">
       <div class="grid grid-cols-2">
         <div class="col-span-2 md:col-span-1">
-          <span class="inline-block col-span-2 md:col-span-1 uppercase pt-3 py-2 px-4 bg-black text-white text-lg font-bold">Share this post</span>
+          <span
+              class="inline-block col-span-2 md:col-span-1 uppercase pt-3 py-2 px-4 bg-black text-white text-lg font-bold">Share this post</span>
         </div>
         <div class="col-span-2 md:col-span-1 flex flex-row items-center justify-start md:justify-end mt-4 md:mt-0">
           <ExternalLink href={`https://www.facebook.com/sharer.php?u=https://nowankybollocks.com${Astro.url.pathname}`}
                         class="inline-block bg-[#003eaaaa] hover:bg-[#003eaa88] p-3">
-            <Facebook />
+            <Facebook/>
           </ExternalLink>
-          <ExternalLink href={`https://twitter.com/intent/tweet?text=${post.title}&url=https://nowankybollocks.com${Astro.url.pathname}`}
-                        class="inline-block bg-[#0693e3aa] hover:bg-[#0693e388] p-3">
-            <Twitter />
+          <ExternalLink
+              href={`https://twitter.com/intent/tweet?text=${post.title}&url=https://nowankybollocks.com${Astro.url.pathname}`}
+              class="inline-block bg-[#0693e3aa] hover:bg-[#0693e388] p-3">
+            <Twitter/>
           </ExternalLink>
-          <ExternalLink href={`https://api.whatsapp.com/send?text=${post.title}%20%0A%0A%20https://nowankybollocks.com${Astro.url.pathname}`}
-                        class="inline-block bg-[rgb(113,206,126)] hover:bg-[rgb(113,206,126,.8)] p-3">
-            <Whatsapp />
+          <ExternalLink
+              href={`https://api.whatsapp.com/send?text=${post.title}%20%0A%0A%20https://nowankybollocks.com${Astro.url.pathname}`}
+              class="inline-block bg-[rgb(113,206,126)] hover:bg-[rgb(113,206,126,.8)] p-3">
+            <Whatsapp/>
           </ExternalLink>
         </div>
       </div>
@@ -94,46 +100,67 @@ const headerImage = await getMainImage(post)
           {post.tags.map((tag) => (<a href={`/tag/${tag.slug}`}
                                       class="bg-gray-400 hover:bg-gray-600 p-1 px-2 uppercase text-sm">{tag.title}</a>))}
       </div>
-    </div>
-    <div class="col-span-10 md:col-span-3">
-      <h5 class="mb-8"><span class="bg-black text-white px-3 py-2 uppercase">Related Posts</span></h5>
-      <div class="grid grid-cols-2 gap-4 gap-y-6">
-          {relatedPosts.map(post => (<a href={postToPath(post)} class="flex flex-col gap-2">
-            <MediaImage class="block"
-                        image={imagesByPostId.get(post.id)?.image}
-            />
-            <h5>{post.title}</h5>
-          </a>))}
-      </div>
-    </div>
-  </div>
+      <div class="px-10 mt-12 bounded">
+        <div class="grid grid-cols-1 gap-4">
+          <div class="gap-6 flex flex-col">
+            <div class="flex items-end border-b-2 border-gray-700 pb-0 mb-4 border-spacing-0 outline-offset-0">
+              <span
+                  class="bg-gray-700 max-h-full pt-2 p-1 px-2 text-white font-normal uppercase max-w-full">{comments.length} Comments</span>
+            </div>
+              {comments.map((comment) => (
+                  <div class="flex justify-start items-start gap-4">
+                    <img alt="User's avatar" src={comment.commenterAvatar || '/null-avatar.jpg'}
+                         style={{maxWidth: '3em'}}/>
+                    <div>
+                      <p class="text-sm">
+                        <span class="font-bold mr-2">{comment.commenterName}</span>
+                        <span class="text-xs text-gray-500">{commentToCreatedDate(comment)}</span>
+                      </p>
+                      <p class="whitespace-pre-wrap">{comment.content}</p>
+                    </div>
+                  </div>
+                  <hr class="my-2" style={{ border: null, borderTop: '1px dashed rgba(1, 1, 1, 0.2)'}}/>
 
-  <div class="bg-brown-grey text-white mt-18">
-    <div class="bounded p-6 py-18 grid grid-cols-2">
-        {previousPost ? (
-                <a href={postToPath(previousPost)}>
-                  <p class="uppercase font-bold">Previous article</p>
-                  <h3 class="size-override md:text-[1.8em] font-normal">{previousPost.title}</h3>
-                </a>
-            ) :
-            (
-                <div></div>
-            )
-        }
-        {nextPost ? (
-                <a class="text-right" href={postToPath(nextPost)}>
-                  <p class="uppercase font-bold">Next article</p>
-                  <h3 class="size-override md:text-[1.8em] font-normal">{nextPost.title}</h3>
-                  <!--<p class="uppercase">Next article</p>-->
-                  <!--<h3>{nextPost.title}</h3>-->
-                </a>
-            ) :
-            (
-                <div></div>
-            )
-        }
-    </div>
-  </div>
 
-  <Footer/>
+              ))}
+            <div class="col-span-10 md:col-span-3 mt-18">
+              <h5 class="mb-8"><span class="bg-black text-white px-3 py-2 uppercase">Related Posts</span></h5>
+              <div class="grid grid-cols-2 gap-4 gap-y-6">
+                  {relatedPosts.map(post => (<a href={postToPath(post)} class="flex flex-col gap-2">
+                    <MediaImage class="block"
+                                image={imagesByPostId.get(post.id)?.image}
+                    />
+                    <h5>{post.title}</h5>
+                  </a>))}
+              </div>
+            </div>
+
+            <div class="bg-brown-grey text-white mt-18">
+              <div class="bounded p-6 py-18 grid grid-cols-2">
+                  {previousPost ? (
+                          <a href={postToPath(previousPost)}>
+                            <p class="uppercase font-bold">Previous article</p>
+                            <h3 class="size-override md:text-[1.8em] font-normal">{previousPost.title}</h3>
+                          </a>
+                      ) :
+                      (
+                          <div></div>
+                      )
+                  }
+                  {nextPost ? (
+                          <a class="text-right" href={postToPath(nextPost)}>
+                            <p class="uppercase font-bold">Next article</p>
+                            <h3 class="size-override md:text-[1.8em] font-normal">{nextPost.title}</h3>
+                            <!--<p class="uppercase">Next article</p>-->
+                            <!--<h3>{nextPost.title}</h3>-->
+                          </a>
+                      ) :
+                      (
+                          <div></div>
+                      )
+                  }
+              </div>
+            </div>
+
+            <Footer/>
 </Layout>

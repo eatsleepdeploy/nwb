@@ -7,7 +7,7 @@ export const Comments: CollectionConfig = {
     admin: {
         useAsTitle: 'id',
     },
-    versions: {drafts: true},
+    versions: {drafts: false},
     hooks: {
         afterChange: [
             ({doc}: { doc: Post }) => {
@@ -47,6 +47,11 @@ export const Comments: CollectionConfig = {
             name: 'commenterAvatar',
             type: 'text',
             required: false,
+        },
+        {
+            name: 'visible',
+            type: 'checkbox',
+            defaultValue: false
         },
         {
             name: 'post',
