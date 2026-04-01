@@ -14,6 +14,7 @@ import ExternalLink from "./ExternalLink.astro";
 import Twitter from "./socials/Twitter.astro";
 import Whatsapp from "./socials/Whatsapp.astro";
 import {commentToCreatedDate} from "../lib/commentUtils";
+import Comment from "./Comment.astro";
 
 
 const generateHTML = (data: SerializedEditorState) => {
@@ -108,17 +109,7 @@ const comments = await getComments(post)
                   class="bg-gray-700 max-h-full pt-2 p-1 px-2 text-white font-normal uppercase max-w-full">{comments.length} Comments</span>
             </div>
               {comments.map((comment) => (
-                  <div class="flex justify-start items-start gap-4">
-                    <img alt="User's avatar" src={comment.commenterAvatar || '/null-avatar.jpg'}
-                         style={{maxWidth: '3em'}}/>
-                    <div>
-                      <p class="text-sm">
-                        <span class="font-bold mr-2">{comment.commenterName}</span>
-                        <span class="text-xs text-gray-500">{commentToCreatedDate(comment)}</span>
-                      </p>
-                      <p class="whitespace-pre-wrap">{comment.content}</p>
-                    </div>
-                  </div>
+                  <Comment comment={comment} />
                   <hr class="my-2" style={{ border: null, borderTop: '1px dashed rgba(1, 1, 1, 0.2)'}}/>
               ))}
             <div class="col-span-10 md:col-span-3 mt-18">

@@ -1,0 +1,33 @@
+---
+import {commentToCreatedDate} from "../lib/commentUtils";
+import type {CommentWithChildren} from '@lib/commentUtils'
+
+interface Props {
+    comment: CommentWithChildren,
+    nested?: number
+}
+const {comment, nested = 0} = Astro.props;
+
+let parentClass = "flex justify-start items-start gap-4"
+if (nested) {
+    parentClass += ` pl-${nested * 4}`
+}
+---
+<div class="flex justify-start items-start gap-4" class:list={[
+  {'ml-15': nested == 1},
+  {'ml-30': nested >= 2},
+]}>
+  <img alt="User's avatar"
+       src={comment.commenterAvatar || '/null-avatar.jpg'}
+       style={{maxWidth: '3em'}}/>
+  <div>
+    <p class="text-sm">
+      <span class="font-bold mr-2">{comment.commenterName}</span>
+      <span class="text-xs text-gray-500">{commentToCreatedDate(comment)}</span>
+    </p>
+    <p class="whitespace-pre-wrap">{comment.content}</p>
+  </div>
+</div>
+{comment.children?.map((child) =>(
+    <Astro.self comment={child} nested={Math.min(nested + 1, 3)}/>)
+)}
