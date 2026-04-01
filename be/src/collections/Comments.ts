@@ -12,7 +12,7 @@ export const Comments: CollectionConfig = {
     versions: {drafts: false},
     hooks: {
         beforeChange: [
-            async ({data, originalDoc}: { data: Partial<Comment>, originalDoc: Comment | undefined }) => {
+            async ({data, originalDoc}: { data: Partial<any>, originalDoc?: any }) => {
                 const email = data.commenterEmail || originalDoc?.commenterEmail
                 if (!email) {
                     return data
