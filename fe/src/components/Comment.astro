@@ -14,8 +14,8 @@ if (nested) {
 }
 ---
 <div class="flex justify-start items-start gap-4" class:list={[
-  {'ml-15': nested == 1},
-  {'ml-30': nested >= 2},
+  {'ml-15': nested >= 1},
+  {'md:ml-30': nested >= 2},
 ]}>
   <img alt="User's avatar"
        src={comment.commenterAvatar || '/null-avatar.jpg'}
