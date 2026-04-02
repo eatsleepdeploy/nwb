@@ -23,6 +23,7 @@
 - [] Setup Cloudflare deployment
   - Setup new pages project
   - Add an `afterChange` trigger to all the places to run a deploy post build
+    - Use a Task, and switch the existing build to this approach.
   - Confirm the deploy looks ok
 - [] Copy over all posts.
 - [] Copy over all comments.
