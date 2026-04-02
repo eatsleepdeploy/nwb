@@ -13,6 +13,11 @@
 
 import * as z from "zod/mini"
 
+export interface Env {
+    comments: D1Database;
+}
+
+
 const Comment = z.object({
     content: z.string().check(z.minLength(1)),
     commenterEmail: z.email(),
@@ -50,19 +55,34 @@ const isItSpam = async (request: Request, comment: CommentType) => {
     const response_text = await response.text()
     return response_text === 'true'
 }
-const post = async (request: Request) => {
+
+const storeComment = async (comment: CommentType, env: Env, userIp: string) => {
+    const { results } = await env.comments.prepare(
+        "INSERT INTO comments (content, commenter_email, commenter_name, post_id, parent_id, user_ip) VALUES (?, ?, ?, ?, ?, ?)",
+    ).bind(
+        comment.content,
+        comment.commenterEmail,
+        comment.commenterName,
+        comment.postId,
+        comment.parentId || null,
+        userIp
+    ).run();
+    console.log(results)
+}
+
+const post = async (request: Request, env: Env) => {
     const comment = Comment.parse(await request.json());
     if (await isItSpam(request, comment)) {
         throw new Error('Spam')
     }
-    // ToDo: Save in DB.
+    await storeComment(comment, env, request.headers.get('CF-Connecting-IP') || '')
     return new Response(null, {
         status: 204,
     });
 }
 
 export default {
-    async fetch(request, env, ctx): Promise<Response> {
+    async fetch(request, env): Promise<Response> {
         if (request.method === "POST") {
             try {
                 return await post(request, env)
