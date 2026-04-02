@@ -12,10 +12,6 @@
   - Add metadata title/description
 
 # Comments
-- [] Setup a worker to receive comment posts
-  - Store in D1
-  - Check with akismet
-  - Ensure whatever cloudflare bot-protections work.
 - [] Setup sending comment from script from frontend
 - [] Add a job to pull from cloudflare
   - Run every few hours
@@ -30,6 +26,9 @@
   - Confirm the deploy looks ok
 - [] Setup editing environment for KT
   - enable live editing
+- [] Check cloudflare bot protection
+  - site
+  - comments
 
 # Post-1st-deploy
 - [] Add a listing page for all tags (why not, SEO)
