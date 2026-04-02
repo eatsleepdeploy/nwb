@@ -53,11 +53,6 @@ export const Comments: CollectionConfig = {
             required: true,
         },
         {
-            name: 'commenterWebsite',
-            type: 'text',
-            required: false,
-        },
-        {
             name: 'commenterAvatar',
             type: 'text',
             required: false,

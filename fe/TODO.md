@@ -14,9 +14,9 @@
 # Comments
 - [] Setup a worker to receive comment posts
   - Store in D1
-  - current path | content | name | email | website
   - Check with akismet
   - Ensure whatever cloudflare bot-protections work.
+- [] Setup sending comment from script from frontend
 - [] Add a job to pull from cloudflare
   - Run every few hours
   - Store in local DB - dedupe based on post and store the D1 id in the local DB so no dupes

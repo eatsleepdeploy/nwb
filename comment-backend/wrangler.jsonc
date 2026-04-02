@@ -13,6 +13,13 @@
 	"upload_source_maps": true,
 	"compatibility_flags": [
 		"nodejs_compat"
+	],
+	"d1_databases": [
+		{
+			"binding": "comments",
+			"database_name": "comments",
+			"database_id": "b569de49-b082-4bc5-8de5-ed8f219b9d4b"
+		}
 	]
 	/**
 	 * Smart Placement

@@ -293,7 +293,6 @@ export interface Comment {
   content: string;
   commenterEmail: string;
   commenterName: string;
-  commenterWebsite?: string | null;
   commenterAvatar?: string | null;
   visible?: boolean | null;
   post: number | Post;
@@ -519,7 +518,6 @@ export interface CommentsSelect<T extends boolean = true> {
   content?: T;
   commenterEmail?: T;
   commenterName?: T;
-  commenterWebsite?: T;
   commenterAvatar?: T;
   visible?: T;
   post?: T;
