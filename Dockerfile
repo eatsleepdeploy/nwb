@@ -17,3 +17,5 @@ WORKDIR /usr/src/app
 COPY docker_run.sh .
 EXPOSE 3000
 CMD ["sh", "docker_run.sh"]
+
+ENV NEXT_TELEMETRY_DISABLED=1
