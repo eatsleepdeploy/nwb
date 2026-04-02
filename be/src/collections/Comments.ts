@@ -77,7 +77,8 @@ export const Comments: CollectionConfig = {
         {
             name: 'd1Id',
             type: "number",
-            required: false
+            required: false,
+            unique: true
         }
     ],
 }

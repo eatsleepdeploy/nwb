@@ -15,5 +15,6 @@ services:
       DATABASE_URL: file:///usr/src/app/be/nwb.db
       HOST: "0.0.0.0"
       PAYLOAD_SECRET: 'D7A4BB51-7099-49BA-A9D5-D6C73B54C6D1'
+      CLOUDFLARE_D1_TOKEN: "${CLOUDFLARE_D1_TOKEN}"
     extra_hosts:
       - 'host.docker.internal:host-gateway'

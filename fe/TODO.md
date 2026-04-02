@@ -12,12 +12,6 @@
 
 # Comments
 - [] Add in reply behaviour
-- [] Add timestamps to the D1 comments
-- [] Add a job to pull from cloudflare
-  - Run every few hours
-  - Skip if not running in docker to prevent pulling from local machine
-  - Store in local DB - dedupe based on post and store the D1 id in the local DB so no dupes
-  - When getting, get where id is bigger than the last local comment we have
 
 # Deployment
 - [] Setup Cloudflare deployment
@@ -25,6 +19,7 @@
   - Add an `afterChange` trigger to all the places to run a deploy post build
     - Use a Task, and switch the existing build to this approach.
   - Confirm the deploy looks ok
+- [] Reset rpi db
 - [] Copy over all posts.
 - [] Copy over all comments.
 - [] Switch domain over & test comments
