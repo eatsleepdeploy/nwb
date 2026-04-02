@@ -74,5 +74,10 @@ export const Comments: CollectionConfig = {
             relationTo: 'comments',
             required: false,
         },
+        {
+            name: 'd1Id',
+            type: "number",
+            required: false
+        }
     ],
 }
