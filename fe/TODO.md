@@ -12,7 +12,7 @@
   - Add metadata title/description
 
 # Comments
-- [] Setup sending comment from script from frontend
+- [] Add in reply behaviour
 - [] Add a job to pull from cloudflare
   - Run every few hours
   - Store in local DB - dedupe based on post and store the D1 id in the local DB so no dupes

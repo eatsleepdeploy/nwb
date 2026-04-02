@@ -30,6 +30,17 @@ type CommentType = z.infer<typeof Comment>;
 
 const akismetApiKey = '008437a2d9eb'
 const akismetCommentCheckUrl = 'https://rest.akismet.com/1.1/comment-check'
+const allowedOrigins = new Set([
+    'http://localhost:4321',
+    'https://nowankybollocks.com',
+])
+
+const getHeaders = (request: Request) => ({
+    "Access-Control-Allow-Origin": request.headers.get('Origin') || '',
+    "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Vary": "Origin"
+});
 
 const isItSpam = async (request: Request, comment: CommentType) => {
     const formData = new FormData();
@@ -57,7 +68,7 @@ const isItSpam = async (request: Request, comment: CommentType) => {
 }
 
 const storeComment = async (comment: CommentType, env: Env, userIp: string) => {
-    const { results } = await env.comments.prepare(
+    const {results} = await env.comments.prepare(
         "INSERT INTO comments (content, commenter_email, commenter_name, post_id, parent_id, user_ip) VALUES (?, ?, ?, ?, ?, ?)",
     ).bind(
         comment.content,
@@ -78,20 +89,44 @@ const post = async (request: Request, env: Env) => {
     await storeComment(comment, env, request.headers.get('CF-Connecting-IP') || '')
     return new Response(null, {
         status: 204,
+        headers: getHeaders(request)
     });
 }
 
 export default {
     async fetch(request, env): Promise<Response> {
+        if (!allowedOrigins.has(request.headers.get('Origin') || '')) {
+            return new Response(
+                JSON.stringify({error: "Invalid origin."}),
+                {
+                    status: 400,
+                    headers: {
+                        ...getHeaders(request),
+                        "Content-Type": "application/json"
+                    }
+                }
+            );
+        }
+        // Handle Preflight OPTIONS request
+        if (request.method === "OPTIONS") {
+            return new Response(null, {
+                headers: getHeaders(request),
+            });
+        }
         if (request.method === "POST") {
             try {
                 return await post(request, env)
             } catch (err) {
                 console.log(err)
-                // Handle malformed JSON or empty body
                 return new Response(
                     JSON.stringify({error: "Invalid payload."}),
-                    {status: 400, headers: {"Content-Type": "application/json"}}
+                    {
+                        status: 400,
+                        headers: {
+                            ...getHeaders(request),
+                            "Content-Type": "application/json"
+                        }
+                    }
                 );
             }
         }
