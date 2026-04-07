@@ -186,6 +186,8 @@ const comments = await getComments(post)
   const contentElement = document.querySelector('#comment-content')
   const commenterNameElement = document.querySelector('#comment-name')
   const commenterEmailElement = document.querySelector('#comment-email')
+
+
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     document.querySelector('#comment-error').hidden = true
@@ -220,4 +222,15 @@ const comments = await getComments(post)
     }
 
   });
+
+  // Add an event adder for data-comment-id to for-each set the parentId
+  document.querySelectorAll('[data-comment-id]').forEach((el) => {
+    el.addEventListener('click', (event) => {
+      parentId = el.dataset.commentId
+      const allComments = document.querySelector(`[data-comment-id]`)
+      // Mute all "replying to this" hidden on existing comments
+      const thisComment = document.querySelector(`[data-comment-id="${parentId}"]`)
+      // Set a clear "replying to this" unhidden on the relevant one
+    })
+  })
 </script>
