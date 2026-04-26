@@ -1,4 +1,5 @@
 cd be
+npm run payload migrate
 npm run start &
 cd ../fe
 npm run build-for-preview
