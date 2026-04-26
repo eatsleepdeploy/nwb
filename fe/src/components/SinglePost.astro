@@ -113,7 +113,7 @@ const comments = await getComments(post)
                   <hr class="my-2" style={{border: null, borderTop: '1px dashed rgba(1, 1, 1, 0.2)'}}/>
               ))}
             <div class="flex items-end border-gray-700 pb-0 border-spacing-0 outline-offset-0">
-              <span
+              <span id="comment-box-title"
                   class="max-h-full pt-2 font-bold uppercase max-w-full">
                 Leave a reply
               </span>
@@ -186,7 +186,7 @@ const comments = await getComments(post)
   const contentElement = document.querySelector('#comment-content')
   const commenterNameElement = document.querySelector('#comment-name')
   const commenterEmailElement = document.querySelector('#comment-email')
-
+  const commentBoxTitle = document.querySelector('#comment-box-title')
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -224,13 +224,15 @@ const comments = await getComments(post)
   });
 
   // Add an event adder for data-comment-id to for-each set the parentId
-  document.querySelectorAll('[data-comment-id]').forEach((el) => {
+  document.querySelectorAll('[data-comment-reply-id]').forEach((el) => {
     el.addEventListener('click', (event) => {
-      parentId = el.dataset.commentId
-      const allComments = document.querySelector(`[data-comment-id]`)
-      // Mute all "replying to this" hidden on existing comments
-      const thisComment = document.querySelector(`[data-comment-id="${parentId}"]`)
-      // Set a clear "replying to this" unhidden on the relevant one
+      parentId = Number(el.dataset.commentReplyId)
+      console.log(parentId)
+
+      const thisComment = document.querySelector(`[data-comment-reply-name-id="${parentId}"]`)
+      console.log(commentBoxTitle.textContent)
+      console.log(thisComment.textContent)
+      commentBoxTitle.textContent = `Reply to ${thisComment.textContent}`
     })
   })
 </script>

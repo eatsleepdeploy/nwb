@@ -22,9 +22,9 @@ if (nested) {
        style={{maxWidth: '3em'}}/>
   <div>
     <p class="text-sm">
-      <span data-comment-reply-name-id={comment.id} lass="font-bold mr-2">{comment.commenterName}</span>
+      <span data-comment-reply-name-id={comment.id} class="font-bold mr-2">{comment.commenterName}</span>
       <span class="text-xs text-gray-500">{commentToCreatedDate(comment)}</span>
-      <span data-comment-reply-id={comment.id}>Reply</span>
+      <span class="cursor-pointer" data-comment-reply-id={comment.id}>Reply</span>
     </p>
     <p class="whitespace-pre-wrap">{comment.content}</p>
   </div>
