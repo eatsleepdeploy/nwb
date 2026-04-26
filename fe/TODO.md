@@ -13,7 +13,6 @@
 # Deployment
 - [] Setup Cloudflare deployment
   - Add an `afterChange` trigger to all the places to run a deploy post build
-    - Use a Task, and switch the existing build to this approach.
 - [] Ensure all posts are moved over.
 - [] Ensure all comments are moved over.
 - [] Test comments. 
@@ -22,6 +21,7 @@
 # Post-1st-deploy
 - [] Setup a sitemap
 - [] Add email triggering if new comments found.
+- [] Switch build approaches to a task-based system
 - [] Search: figure out how to do this
   - Workers?
     - With main DB in D1?
