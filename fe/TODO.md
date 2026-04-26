@@ -12,16 +12,15 @@
 
 # Deployment
 - [] Setup Cloudflare deployment
-  - Setup new pages project
   - Add an `afterChange` trigger to all the places to run a deploy post build
     - Use a Task, and switch the existing build to this approach.
-  - Confirm the deploy looks ok
-- [] Reset rpi db
-- [] Copy over all posts.
-- [] Copy over all comments.
+- [] Ensure all posts are moved over.
+- [] Ensure all comments are moved over.
+- [] Test comments. 
 - [] Switch domain over & test comments
 
 # Post-1st-deploy
+- [] Setup a sitemap
 - [] Add email triggering if new comments found.
 - [] Search: figure out how to do this
   - Workers?
@@ -34,3 +33,4 @@
   - site
   - comments
 - [] Write up blog post about approach
+- [] Add a 404 page
