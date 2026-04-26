@@ -10,9 +10,6 @@
   - Add og: stuff
   - Add metadata title/description
 
-# Comments
-- [] Add in reply behaviour
-
 # Deployment
 - [] Setup Cloudflare deployment
   - Setup new pages project
