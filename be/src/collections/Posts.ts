@@ -1,7 +1,5 @@
-import {exec} from 'child_process'
 import {CollectionConfig} from 'payload'
-import {populateSlug, setPublished} from "@/collections/utils";
-import {Post} from "@/payload-types";
+import {deploy, populateSlug, setPublished} from "@/collections/utils";
 
 export const Posts: CollectionConfig = {
     slug: 'posts',
@@ -10,12 +8,7 @@ export const Posts: CollectionConfig = {
     },
     versions: {drafts: true},
     hooks: {
-        afterChange: [
-            ({doc}: { doc: Post }) => {
-                exec('./build.sh')
-                return doc
-            }
-        ]
+        afterChange: [deploy]
     },
     access: {
         read: () => {

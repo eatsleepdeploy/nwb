@@ -1,5 +1,5 @@
 import type {CollectionConfig} from 'payload'
-import {populateSlug, setPublished} from "@/collections/utils";
+import {deploy, populateSlug, setPublished} from "@/collections/utils";
 
 export const Pages: CollectionConfig = {
     slug: 'pages',
@@ -7,7 +7,9 @@ export const Pages: CollectionConfig = {
         useAsTitle: 'title',
     },
     versions: {drafts: true},
-
+    hooks: {
+        afterChange: [deploy]
+    },
     access: {
         read: () => {
             return true
