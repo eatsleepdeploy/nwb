@@ -27,12 +27,16 @@ export const setPublished: FieldHook<Post> = ({value, data}) => {
 
 
 export const deploy = ({doc}: { doc: Post | Page }) => {
+    console.log('deploying')
     if (process.env.IS_HOMESRV !== 'true') {
+        console.log(`process.env.IS_HOMESRV is ${process.env.IS_HOMESRV}, not doing owt`)
         return doc
     }
     if (doc._status == 'published') {
+        console.log('Publishing')
         exec('./build-and-deploy.sh')
     } else {
+        console.log('Building staging')
         exec('./build.sh')
     }
     return doc
