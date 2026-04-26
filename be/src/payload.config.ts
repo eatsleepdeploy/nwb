@@ -97,7 +97,9 @@ export default buildConfig({
                         throw new Error("request failed")
                     }
                     const data: { result: { results: D1Comment[] }[] } = await response.json()
+                    let didACreate = false;
                     const c = await Promise.all(data.result.map(r => r.results).flat().map((d1Comment) => {
+                        didACreate = true;
                         return req.payload.create({
                             collection: 'comments',
                             data: {
@@ -110,6 +112,26 @@ export default buildConfig({
                             },
                         })
                     }))
+
+                    // ToDo: Turn this on once configuration is complete.
+                    // const sendEmailUrl = "https://api.cloudflare.com/client/v4/accounts/4bd7e0101ed0269b44aa0d935e24aa5a/email/sending/send"
+                    // if (didACreate) {
+                    //     await fetch(sendEmailUrl, {
+                    //         method: "POST",
+                    //         headers: {
+                    //             "Authorization": `Bearer ${process.env.CLOUDFLARE_D1_TOKEN}`,
+                    //             "Content-Type": "application/json",
+                    //         },
+                    //         body: JSON.stringify({
+                    //             to: 'katie@subjectconsulting.com',
+                    //             cc: ["jason@jasonkelly.dev"],
+                    //             from: 'info@nowankybollocks.com',
+                    //             subject: 'New NWB comments!',
+                    //             html: `<h1>New comments received</h1><p>Visit <a href="https://nwb-admin.darter-tone.ts.net/admin/collections/comments">the admin</a> to approve them.</p>`,
+                    //             text: "New comments received."
+                    //         })
+                    //     })
+                    // }
 
                     return {
                         output: {success: true, newComments: c.length},
