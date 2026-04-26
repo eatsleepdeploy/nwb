@@ -7,7 +7,8 @@
     "build": "astro build",
     "preview": "astro --outDir dist-preview preview",
     "astro": "astro",
-    "build-for-preview": "IS_PREVIEW=true astro --outDir dist-preview build"
+    "build-for-preview": "IS_PREVIEW=true astro --outDir dist-preview build",
+    "deploy": "wrangler pages deploy dist-preview --project-name nwb"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^13.1.3",
