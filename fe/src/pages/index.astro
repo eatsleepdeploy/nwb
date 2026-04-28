@@ -34,15 +34,15 @@ const {imagesByAuthorId, imagesByPostId} = await getThubmnailAndAuthorImages([
               firstTwoPosts.map((post: Post, i: number) => (
                   <a href={postToPath(post)} class="flex flex-col gap-4 md:flex-row h-auto align-middle">
                     <MediaImage image={imagesByPostId.get(post.id)?.image} class="max-w-full md:max-w-2/3"/>
-                    <div class="flex flex-col flex-1 overflow-hidden justify-center">
+                    <div class="flex flex-col flex-1 overflow-hidden justify-center gap-1">
                       <h3 class="size-override text-[1.6em] md:text-[1.8em] lg:text-[2.5em] break-words">{post.title}</h3>
-                      <p class="text-sm mt-1 mb-0">{post.excerpt}</p>
                         {post.author &&
                             <p class="text-sm mt-1 font-bold">
                               <MediaImage class="inline-block rounded-full mr-2"
                                           image={imagesByAuthorId.get(post.author.id)?.image}
                                           style={{width: '20px', height: '20px'}}/>
                                 {post.author?.name}</p>}
+                      <p class="text-sm mt-1 mb-0">{post.excerpt}</p>
                     </div>
                   </a>
               ))
@@ -52,16 +52,16 @@ const {imagesByAuthorId, imagesByPostId} = await getThubmnailAndAuthorImages([
         <div class="grid grid-cols-2 gap-4">
             {
                 restPosts.map((post: Post, i: number) => (
-                    <a href={postToPath(post)} class="flex flex-col col-span-2 md:col-span-1 gap-3 mb-6">
+                    <a href={postToPath(post)} class="flex flex-col col-span-2 md:col-span-1 gap-1 mb-6">
                       <MediaImage image={imagesByPostId.get(post.id)?.image} class="max-w-full"/>
-                      <h4 class="break-words">{post.title}</h4>
-                      <p class="text-sm mt-1">{post.excerpt}</p>
-                        {post.author &&
+                      <h4 class="break-words mt-1">{post.title}</h4>
+                      {post.author &&
                             <p class="text-sm mt-1 font-bold">
                               <MediaImage class="inline-block rounded-full mr-2"
                                           image={imagesByAuthorId.get(post.author.id)?.image}
                                           style={{width: '20px', height: '20px'}}/>
                                 {post.author?.name}</p>}
+                      <p class="text-sm mt-1">{post.excerpt}</p>
                     </a>
                 ))
             }
@@ -81,15 +81,15 @@ const {imagesByAuthorId, imagesByPostId} = await getThubmnailAndAuthorImages([
       </div>
         {
             bestOfNWBPosts.map((post: Post, i: number) => (
-                <a href={postToPath(post)} class="flex flex-col gap-3">
+                <a href={postToPath(post)} class="flex flex-col gap-2">
                   <MediaImage image={imagesByPostId.get(post.id)?.image} class="max-w-full"/>
+                  <h4 class="break-words">{post.title}</h4>
                     {post.author &&
                         <p class="text-sm mt-1 font-bold">
                           <MediaImage class="inline-block rounded-full mr-2"
                                       image={imagesByAuthorId.get(post.author.id)?.image}
                                       style={{width: '20px', height: '20px'}}/>
                             {post.author?.name}</p>}
-                  <h4 class="break-words">{post.title}</h4>
                   <p class="text-sm mt-1">{post.excerpt}</p>
 
                 </a>
