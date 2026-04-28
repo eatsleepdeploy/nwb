@@ -18,13 +18,13 @@ const {imagesByAuthorId, imagesByPostId} = await getThubmnailAndAuthorImages(pos
                 <MediaImage image={imagesByPostId.get(post.id)?.image} class="max-w-full md:max-w-1/2 h-max" />
                 <div class="flex flex-col flex-1 overflow-hidden justify-start">
                   <h3 class="size-override text-[1.6em] md:text-[1.8em] lg:text-[2.5em] break-words">{post.title}</h3>
+                {post.author &&
+                    <p class="text-sm mt-1 font-bold">
+                      <MediaImage class="inline-block rounded-full mr-2"
+                                  image={imagesByAuthorId.get(post.author.id)?.image}
+                                  style={{width: '20px', height: '20px'}}/>
+                        {post.author?.name}</p>}
                   <p class="text-sm mt-1 mb-0">{post.excerpt}</p>
-                    {post.author &&
-                        <p class="text-sm mt-1 font-bold">
-                          <MediaImage class="inline-block rounded-full mr-2"
-                                      image={imagesByAuthorId.get(post.author.id)?.image}
-                                      style={{width: '20px', height: '20px'}}/>
-                            {post.author?.name}</p>}
                 </div>
               </a>
         ))
