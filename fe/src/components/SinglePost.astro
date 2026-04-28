@@ -15,6 +15,7 @@ import Twitter from "./socials/Twitter.astro";
 import Whatsapp from "./socials/Whatsapp.astro";
 import {commentToCreatedDate} from "../lib/commentUtils";
 import Comment from "./Comment.astro";
+import LinkedIn from "./socials/LinkedIn.astro";
 
 
 const generateHTML = (data: SerializedEditorState) => {
@@ -67,9 +68,9 @@ const comments = await getComments(post)
               class="inline-block col-span-2 md:col-span-1 uppercase pt-3 py-2 px-4 bg-black text-white text-lg font-bold">Share this post</span>
         </div>
         <div class="col-span-2 md:col-span-1 flex flex-row items-center justify-start md:justify-end mt-4 md:mt-0">
-          <ExternalLink href={`https://www.facebook.com/sharer.php?u=https://nowankybollocks.com${Astro.url.pathname}`}
-                        class="inline-block bg-[#003eaaaa] hover:bg-[#003eaa88] p-3">
-            <Facebook/>
+          <ExternalLink class="inline-block bg-[#0A66C2] hover:bg-[#0A66C2aa] p-3"
+                        href={`http://www.linkedin.com/shareArticle?mini=true&url=https://nowankybollocks.com${Astro.url.pathname}&source=nowankybollocks.com`}>
+            <LinkedIn />
           </ExternalLink>
           <ExternalLink
               href={`https://twitter.com/intent/tweet?text=${post.title}&url=https://nowankybollocks.com${Astro.url.pathname}`}
