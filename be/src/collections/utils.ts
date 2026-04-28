@@ -25,7 +25,7 @@ export const setPublished: FieldHook<Post> = ({value, data}) => {
     return data?.updatedAt || new Date();
 };
 
-
+// ToDo: Turn this into a task
 export const deploy = ({doc}: { doc: Post | Page }) => {
     console.log('deploying')
     if (!process.env.CLOUDFLARE_D1_TOKEN) {
@@ -34,7 +34,9 @@ export const deploy = ({doc}: { doc: Post | Page }) => {
     }
     if (doc._status == 'published') {
         console.log('Publishing')
-        exec('./build-and-deploy.sh')
+        // Commented for now to prevent publish spam during content migration
+        // exec('./build-and-deploy.sh')
+        exec('./build.sh')
     } else {
         console.log('Building staging')
         exec('./build.sh')
