@@ -108,7 +108,7 @@ const comments = await getComments(post)
                                   class="bg-gray-400 hover:bg-gray-600 p-1 px-2 uppercase text-sm">{tag.title}</a>))}
   </div>
     </div>
-     <div class="col-span-10 md:col-span-3 mt-18">
+     <div class="col-span-10 md:col-span-3 mt-2.5">
       <h5 class="mb-8"><span class="bg-black text-white px-3 py-2 uppercase">Related Posts</span></h5>
        <div class="grid grid-cols-2 gap-4 gap-y-6">
          {relatedPosts.map(post => (<a href={postToPath(post)} class="flex flex-col gap-2">
