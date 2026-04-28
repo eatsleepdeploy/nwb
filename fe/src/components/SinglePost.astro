@@ -93,9 +93,9 @@ const comments = await getComments(post)
       <div class="text-center mt-6">
         <MediaImage class="inline-block rounded-full"
                     image={imagesByAuthorId.get(post.author.id)?.image}
-                    style={{width: '196px', height: '196px'}}/>
+                    style={{width: '150px', height: '150px'}}/>
         <h5 class="uppercase mt-4">{post.author.name}</h5>
-        <div class="content mt-4" set:html={generateHTML(post.author.bio)}></div>
+        <div class="content mt-4 text-sm" set:html={generateHTML(post.author.bio)}></div>
       </div>
 
       <div class="mt-12">
