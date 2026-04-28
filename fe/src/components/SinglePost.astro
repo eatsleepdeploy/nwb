@@ -16,6 +16,7 @@ import Whatsapp from "./socials/Whatsapp.astro";
 import {commentToCreatedDate} from "../lib/commentUtils";
 import Comment from "./Comment.astro";
 import LinkedIn from "./socials/LinkedIn.astro";
+import Threads from "./socials/Threads.astro";
 
 
 const generateHTML = (data: SerializedEditorState) => {
@@ -81,6 +82,11 @@ const comments = await getComments(post)
               href={`https://api.whatsapp.com/send?text=${post.title}%20%0A%0A%20https://nowankybollocks.com${Astro.url.pathname}`}
               class="inline-block bg-[rgb(113,206,126)] hover:bg-[rgb(113,206,126,.8)] p-3">
             <Whatsapp/>
+          </ExternalLink>
+          <ExternalLink
+              href={`https://www.threads.com/intent/post?text=${encodeURIComponent(post.title)}&url=https://nowankybollocks.com${Astro.url.pathname}`}
+              class="inline-block bg-[rgb(0,0,0)] hover:bg-[rgb(0,0,0,.8)] p-3">
+            <Threads/>
           </ExternalLink>
         </div>
       </div>
