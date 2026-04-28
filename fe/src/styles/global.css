@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 body {
-    font-family: "Roboto", sans-serif;
+     font-family: "Open Sans", sans-serif;
 }
 
 p, .open-sans {
@@ -87,7 +87,7 @@ h5 {
 
 .content blockquote  {
     font-family: "Chivo", sans-serif;
-    font-size: 2.8em;
+    font-size: 2em;
     font-style: italic;
     font-weight: bold;
     line-height: 1em;

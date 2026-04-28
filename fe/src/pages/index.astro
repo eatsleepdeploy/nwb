@@ -27,9 +27,9 @@ const {imagesByAuthorId, imagesByPostId} = await getThubmnailAndAuthorImages([
     <div class="grid grid-cols-10 gap-4 md:gap-12">
       <div class="col-span-10 md:col-span-6 gap-6 flex flex-col">
         <div class="flex items-end border-b-2 border-gray-700 pb-0 mb-4 border-spacing-0 outline-offset-0">
-        <span
-            class="bg-gray-700 max-h-full pt-2 p-1 px-2 text-white font-normal uppercase max-w-full">Latest Interviews</span>
-      </div>
+          <span
+              class="bg-gray-700 max-h-full p-1 px-2 text-white font-normal uppercase max-w-full">Latest Interviews</span>
+        </div>
           {
               firstTwoPosts.map((post: Post, i: number) => (
                   <a href={postToPath(post)} class="flex flex-col gap-4 md:flex-row h-auto align-middle">
@@ -48,11 +48,11 @@ const {imagesByAuthorId, imagesByPostId} = await getThubmnailAndAuthorImages([
               ))
           }
       </div>
-      <div class="col-span-10 md:col-span-4 flex flex-col gap-2 md:pt-15">
-        <div class="grid md:grid-cols-2 gap-4">
+      <div class="col-span-10 md:col-span-4 flex flex-col md:pt-18">
+        <div class="grid grid-cols-2 gap-4">
             {
                 restPosts.map((post: Post, i: number) => (
-                    <a href={postToPath(post)} class="flex flex-col gap-3 mb-6">
+                    <a href={postToPath(post)} class="flex flex-col col-span-2 md:col-span-1 gap-3 mb-6">
                       <MediaImage image={imagesByPostId.get(post.id)?.image} class="max-w-full"/>
                       <h4 class="break-words">{post.title}</h4>
                       <p class="text-sm mt-1">{post.excerpt}</p>
@@ -77,7 +77,7 @@ const {imagesByAuthorId, imagesByPostId} = await getThubmnailAndAuthorImages([
     <div class="grid grid-cols-1 md:grid-cols-4  gap-4">
       <div class="flex items-end border-b-2 border-gray-700 pb-0 mb-4 border-spacing-0 outline-offset-0 md:col-span-4">
           <span
-              class="bg-gray-700 max-h-full pt-2 p-1 px-2 text-white font-normal max-w-full">Best of NWB</span>
+              class="bg-gray-700 max-h-full p-1 px-2 text-white font-normal max-w-full">Best of NWB</span>
       </div>
         {
             bestOfNWBPosts.map((post: Post, i: number) => (
