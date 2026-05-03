@@ -157,7 +157,7 @@ export default buildConfig({
                     }
                     return {output: {success: true}};
                 },
-            },
+            } as TaskConfig<'buildAndOrDeploy'>,
         ],
         // Important: You also need to configure a runner to execute scheduled jobs
         autoRun: [
