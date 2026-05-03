@@ -12,6 +12,8 @@ import {Authors} from "@/collections/Authors";
 import {Tags} from "@/collections/Tags";
 import {Pages} from "@/collections/Pages";
 import {Comments} from "@/collections/Comments";
+import {exec} from "child_process";
+import {promisify} from "node:util";
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -25,6 +27,8 @@ type D1Comment = {
     parent_id?: number | null;
     user_ip?: string | null;
 }
+
+const execPromise = promisify(exec);
 
 export default buildConfig({
     admin: {
@@ -55,7 +59,7 @@ export default buildConfig({
                 schedule: [
                     {
                         cron: '0 8 * * *', // Every day at 8:00 AM
-                        queue: 'daily', // Queue to add the job to
+                        queue: 'default', // Queue to add the job to
                     },
                 ],
                 inputSchema: [
@@ -138,12 +142,28 @@ export default buildConfig({
                     }
                 },
             } as TaskConfig<'importComments'>,
+            {
+                slug: 'buildAndOrDeploy',
+                handler: async ({input}) => {
+                    // Your logic here
+                    if (input.status == 'published') {
+                        console.log('Publishing to prod')
+                        // Commented for now to prevent publish spam during content migration
+                        // await execPromise('./build-and-deploy.sh')
+                        await execPromise('./build.sh')
+                    } else {
+                        console.log('Building staging')
+                        await execPromise('./build.sh')
+                    }
+                    return {output: {success: true}};
+                },
+            },
         ],
         // Important: You also need to configure a runner to execute scheduled jobs
         autoRun: [
             {
-                cron: '*/5 * * * *', // Check for jobs every minute
-                queue: 'daily', // Process jobs from 'daily' queue
+                cron: '* * * * *', // Check for jobs every minute
+                queue: 'default', // Process jobs from 'daily' queue
                 limit: 10,
             },
         ],

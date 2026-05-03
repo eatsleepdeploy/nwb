@@ -26,20 +26,16 @@ export const setPublished: FieldHook<Post> = ({value, data}) => {
 };
 
 // ToDo: Turn this into a task
-export const deploy = ({doc}: { doc: Post | Page }) => {
-    console.log('deploying')
+export const deploy = async ({doc, req}: { doc: Post | Page, req: Request }) => {
     if (!process.env.CLOUDFLARE_D1_TOKEN) {
         console.log(`process.env.CLOUDFLARE_D1_TOKEN is empty, not doing owt`)
         return doc
     }
-    if (doc._status == 'published') {
-        console.log('Publishing')
-        // Commented for now to prevent publish spam during content migration
-        // exec('./build-and-deploy.sh')
-        exec('./build.sh')
-    } else {
-        console.log('Building staging')
-        exec('./build.sh')
-    }
+    await req.payload.jobs.queue({
+      task: 'buildAndOrDeploy',
+      input: {
+        status: doc._status
+      },
+    })
     return doc
 }
