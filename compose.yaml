@@ -17,5 +17,6 @@ services:
       PAYLOAD_SECRET: 'D7A4BB51-7099-49BA-A9D5-D6C73B54C6D1'
       CLOUDFLARE_D1_TOKEN: "${CLOUDFLARE_D1_TOKEN}"
       CLOUDFLARE_API_TOKEN: "${CLOUDFLARE_API_TOKEN}"
+      CLOUDFLARE_ACCOUNT_ID: "d1c2266ee5c42ee8e958b4afe4b4f56f"
     extra_hosts:
       - 'host.docker.internal:host-gateway'
