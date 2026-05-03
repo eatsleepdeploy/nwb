@@ -110,6 +110,7 @@ export interface Config {
   jobs: {
     tasks: {
       importComments: TaskImportComments;
+      buildAndOrDeploy: TaskBuildAndOrDeploy;
       inline: {
         input: unknown;
         output: unknown;
@@ -382,7 +383,7 @@ export interface PayloadJob {
     | {
         executedAt: string;
         completedAt: string;
-        taskSlug: 'inline' | 'importComments';
+        taskSlug: 'inline' | 'importComments' | 'buildAndOrDeploy';
         taskID: string;
         input?:
           | {
@@ -415,7 +416,7 @@ export interface PayloadJob {
         id?: string | null;
       }[]
     | null;
-  taskSlug?: ('inline' | 'importComments') | null;
+  taskSlug?: ('inline' | 'importComments' | 'buildAndOrDeploy') | null;
   queue?: string | null;
   waitUntil?: string | null;
   processing?: boolean | null;
@@ -748,6 +749,14 @@ export interface TaskImportComments {
   input: {
     date?: string | null;
   };
+  output?: unknown;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskBuildAndOrDeploy".
+ */
+export interface TaskBuildAndOrDeploy {
+  input?: unknown;
   output?: unknown;
 }
 /**
