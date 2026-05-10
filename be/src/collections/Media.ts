@@ -31,5 +31,12 @@ export const Media: CollectionConfig = {
     ],
     adminThumbnail: 'thumbnail',
     mimeTypes: ['image/*'],
+    pasteURL: {
+      allowList: [
+        {
+          hostname: 'nowankybollocks.com',
+        },
+      ]
+    }
   },
 }
