@@ -1,5 +1,5 @@
 import type {CollectionConfig} from 'payload'
-import {deploy} from "@/collections/utils";
+import {deploy, linksAsNewTabsByDefaultEditor} from "@/collections/utils";
 
 
 export const Authors: CollectionConfig = {
@@ -30,6 +30,7 @@ export const Authors: CollectionConfig = {
             name: 'bio',
             type: 'richText',
             required: true,
+            editor: linksAsNewTabsByDefaultEditor()
         },
     ],
 }

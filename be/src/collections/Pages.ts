@@ -1,5 +1,5 @@
 import type {CollectionConfig} from 'payload'
-import {deploy, populateSlug, setPublished} from "@/collections/utils";
+import {deploy, linksAsNewTabsByDefaultEditor, populateSlug, setPublished} from "@/collections/utils";
 
 export const Pages: CollectionConfig = {
     slug: 'pages',
@@ -33,6 +33,7 @@ export const Pages: CollectionConfig = {
         {
             name: 'content',
             type: 'richText',
+            editor: linksAsNewTabsByDefaultEditor()
         },
         {
             name: 'publishedAt',

@@ -1,5 +1,6 @@
 import {CollectionAfterChangeHook, FieldHook} from "payload";
 import {Post, Page} from "@/payload-types";
+import {lexicalEditor, LinkFeature} from "@payloadcms/richtext-lexical";
 
 export const populateSlug: FieldHook<Post> = ({value, data}) => {
     // Only set if creating or if the value is empty
@@ -30,10 +31,28 @@ export const deploy: CollectionAfterChangeHook<Post | Page> = async ({doc, req})
         return doc
     }
     await req.payload.jobs.queue({
-      task: 'buildAndOrDeploy',
-      input: {
-        status: doc._status
-      },
+        task: 'buildAndOrDeploy',
+        input: {
+            status: doc._status
+        },
     })
     return doc
 }
+
+export const linksAsNewTabsByDefaultEditor = () => lexicalEditor({
+    features: ({defaultFeatures}) => [
+        ...defaultFeatures,
+        LinkFeature({
+            // Use a function here to get access to default fields
+            fields: ({defaultFields}) => [
+                ...defaultFields.filter(f => f.name !== 'newTab'),
+                {
+                    name: 'newTab',
+                    label: 'Open in new tab',
+                    type: 'checkbox',
+                    defaultValue: true, // Sets your default
+                },
+            ],
+        }),
+    ],
+})

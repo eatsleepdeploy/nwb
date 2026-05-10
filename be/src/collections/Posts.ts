@@ -1,5 +1,5 @@
 import {CollectionConfig} from 'payload'
-import {deploy, populateSlug, setPublished} from "@/collections/utils";
+import {deploy, linksAsNewTabsByDefaultEditor, populateSlug, setPublished} from "@/collections/utils";
 
 export const Posts: CollectionConfig = {
     slug: 'posts',
@@ -50,6 +50,7 @@ export const Posts: CollectionConfig = {
         {
             name: 'subcontent',
             type: 'richText',
+            editor: linksAsNewTabsByDefaultEditor()
         },
         {
             name: 'tags', // The name of the field
