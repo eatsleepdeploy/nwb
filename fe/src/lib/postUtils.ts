@@ -4,7 +4,7 @@ import type {Post} from "../../payload-types.ts";
 
 const padZero = (s: string | number) => String(s).padStart(2, '0')
 export const postToPath = (post: Post) => {
-    const d = new Date(post.createdAt)
+    const d = new Date(post.publishedAt || post.createdAt)
     return `/${d.getFullYear()}/${padZero(d.getMonth() + 1)}/${padZero(d.getDay())}/${post.slug}`
 }
 
