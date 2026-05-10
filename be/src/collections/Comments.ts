@@ -1,7 +1,6 @@
 import crypto from 'crypto';
-import {exec} from 'child_process'
 import {CollectionConfig} from 'payload'
-import {Comment} from "@/payload-types";
+import {deploy} from "@/collections/utils";
 
 
 export const Comments: CollectionConfig = {
@@ -24,12 +23,7 @@ export const Comments: CollectionConfig = {
                 return data
             }
         ],
-        afterChange: [
-            ({doc}: { doc: Comment }) => {
-                exec('./build.sh')
-                return doc
-            }
-        ],
+        afterChange: [deploy]
     },
     access: {
         read: () => {

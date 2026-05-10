@@ -1,4 +1,5 @@
 import type {CollectionConfig} from 'payload'
+import {deploy} from "@/collections/utils";
 
 
 export const Authors: CollectionConfig = {
@@ -7,7 +8,9 @@ export const Authors: CollectionConfig = {
         useAsTitle: 'name',
     },
     versions: {drafts: true},
-
+    hooks: {
+        afterChange: [deploy]
+    },
     access: {
         read: () => true,
     },
