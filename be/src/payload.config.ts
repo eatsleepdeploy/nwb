@@ -144,9 +144,9 @@ export default buildConfig({
             } as TaskConfig<'importComments'>,
             {
                 slug: 'buildAndOrDeploy',
-                handler: async ({input}) => {
+                handler: async ({input}: {input: {status: 'draft' | 'published' | null}}) => {
                     // Your logic here
-                    if (input.status == 'published') {
+                    if (input.status === 'published') {
                         console.log('Publishing to prod')
                         // Commented for now to prevent publish spam during content migration
                         // await execPromise('./build-and-deploy.sh')
