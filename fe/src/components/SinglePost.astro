@@ -33,7 +33,7 @@ const {nextPost, post, previousPost} = Astro.props;
 if (post.subcontent) {
     await parseImagesFromContent(post.subcontent)
 }
-if (post.author.bio) {
+if (post.author?.bio) {
     await parseImagesFromContent(post.author.bio)
 }
 
