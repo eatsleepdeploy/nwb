@@ -65,7 +65,7 @@ export const getMainImage = async (post: Post) => {
 
 export const parseImagesFromContent = (content: SerializedEditorState) => {
     return Promise.all(content.root.children.map(async (node: any) => {
-        if (node.type === 'upload') {
+        if (node.type === 'upload' && node.value.url) {
             const thisImage = await imagePathToUrl({
                 path: node.value.url,
                 alt: node.value.alt,
