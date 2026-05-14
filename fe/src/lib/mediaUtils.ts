@@ -26,7 +26,7 @@ export const getThubmnailAndAuthorImages = async (posts: Post[]) => {
         if (!post.featuredImage?.sizes.thumbnail) {
             return null;
         }
-        const img = post.featuredImage.sizes.thumbnail ? post.featuredImage.sizes.thumbnail : post.featuredImage;
+        const img = post.featuredImage.sizes.thumbnail?.url ? post.featuredImage.sizes.thumbnail : post.featuredImage;
         const image = await imagePathToUrl({
             path: img.url,
             alt: post.featuredImage.alt,
@@ -40,7 +40,7 @@ export const getThubmnailAndAuthorImages = async (posts: Post[]) => {
         if (!post.author?.photo) {
             return null;
         }
-        const img = post.author.photo.sizes.thumbnail ? post.author.photo.sizes.thumbnail : post.author.photo;
+        const img = post.author.photo.sizes.thumbnail?.url ? post.author.photo.sizes.thumbnail : post.author.photo;
         const image = await imagePathToUrl({
             path: img.url,
             alt: post.author.photo.alt,
