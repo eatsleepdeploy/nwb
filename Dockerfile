@@ -2,15 +2,17 @@ FROM node:24-bookworm-slim
 
 WORKDIR /usr/src/app
 
-COPY fe /usr/src/app/fe
-
 WORKDIR /usr/src/app/fe
+COPY fe/package.json fe/package-lock.json ./
+
 RUN npm i
 
 
 WORKDIR /usr/src/app/be
-COPY be /usr/src/app/be
+COPY be/package.json be/package-lock.json ./
 RUN npm i
+COPY be /usr/src/app/be
+COPY fe /usr/src/app/fe
 RUN npm run build
 
 WORKDIR /usr/src/app
