@@ -54,6 +54,9 @@ export const getThubmnailAndAuthorImages = async (posts: Post[]) => {
 }
 
 export const getMainImage = async (post: Post) => {
+    if (!post.featuredImage?.url) {
+        return {src: ''}
+    }
     return imagePathToUrl({
         path: post.featuredImage.url,
         alt: post.featuredImage.alt,
