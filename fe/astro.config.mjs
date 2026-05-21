@@ -2,12 +2,16 @@
 import {defineConfig} from 'astro/config';
 import tailwindcss from "@tailwindcss/vite";
 
+import sitemap from "@astrojs/sitemap";
+
 // https://astro.build/config
 export default defineConfig({
   output: 'static',
+
   image: {
       domains: ['localhost:3000', 'localhost'], // Add the domain(s) of your image API/CDN
   },
+
   redirects: {
     "/category/interviews": {
       status: 301,
@@ -42,7 +46,10 @@ export default defineConfig({
       destination: "/interviews/8"
     },
   },
+
   vite: {
     plugins: [tailwindcss()],
   },
+
+  integrations: [sitemap()],
 });
