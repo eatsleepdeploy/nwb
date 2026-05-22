@@ -73,6 +73,17 @@ export const Comments: CollectionConfig = {
             type: "number",
             required: false,
             unique: true
-        }
+        },
+        {
+          name: 'createdAt',
+          type: 'date',
+          label: 'Created At',
+          admin: {
+            date: {
+              pickerAppearance: 'dayAndTime', // Allows precise date and time selection
+            },
+            position: 'sidebar', // Cleanly tuck it away in the UI
+          },
+        },
     ],
 }

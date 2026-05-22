@@ -311,8 +311,8 @@ export interface Comment {
   post: number | Post;
   parent?: (number | null) | Comment;
   d1Id?: number | null;
-  updatedAt: string;
   createdAt: string;
+  updatedAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -638,8 +638,8 @@ export interface CommentsSelect<T extends boolean = true> {
   post?: T;
   parent?: T;
   d1Id?: T;
-  updatedAt?: T;
   createdAt?: T;
+  updatedAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
