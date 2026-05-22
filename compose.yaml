@@ -8,6 +8,8 @@ services:
     volumes:
       - /home/jason/nwb/nwb.db:/usr/src/app/be/nwb.db
       - /home/jason/nwb/media:/usr/src/app/be/media
+      - /home/jason/nwb/dist:/usr/src/app/fe/dist
+      - /home/jason/nwb/dist-preview:/usr/src/app/fe/dist-preview
 #      - /Users/jasonkelly/Projects/nwb/be/nwb.db:/usr/src/app/be/nwb.db
     restart: unless-stopped
     privileged: false  # Might need to turn this on, worry later if things don't work
