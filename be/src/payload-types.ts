@@ -266,6 +266,7 @@ export interface Tag {
   id: number;
   title: string;
   slug: string;
+  description?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -311,8 +312,8 @@ export interface Comment {
   post: number | Post;
   parent?: (number | null) | Comment;
   d1Id?: number | null;
-  updatedAt: string;
   createdAt: string;
+  updatedAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -609,6 +610,7 @@ export interface AuthorsSelect<T extends boolean = true> {
 export interface TagsSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
+  description?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -638,8 +640,8 @@ export interface CommentsSelect<T extends boolean = true> {
   post?: T;
   parent?: T;
   d1Id?: T;
-  updatedAt?: T;
   createdAt?: T;
+  updatedAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

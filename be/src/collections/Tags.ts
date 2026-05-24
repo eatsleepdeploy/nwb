@@ -26,5 +26,10 @@ export const Tags: CollectionConfig = {
                 beforeChange: [populateSlug],
             },
         },
+        {
+            name: 'description',
+            type: 'textarea',
+            required: false
+        },
     ],
 }

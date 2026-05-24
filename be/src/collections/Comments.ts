@@ -78,6 +78,7 @@ export const Comments: CollectionConfig = {
           name: 'createdAt',
           type: 'date',
           label: 'Created At',
+          index: true,
           admin: {
             date: {
               pickerAppearance: 'dayAndTime', // Allows precise date and time selection

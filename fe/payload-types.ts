@@ -266,6 +266,7 @@ export interface Tag {
   id: number;
   title: string;
   slug: string;
+  description?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -609,6 +610,7 @@ export interface AuthorsSelect<T extends boolean = true> {
 export interface TagsSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
+  description?: T;
   updatedAt?: T;
   createdAt?: T;
 }
