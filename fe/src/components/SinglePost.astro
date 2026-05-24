@@ -209,7 +209,7 @@ const comments = await getComments(post)
     const commenterName = commenterNameElement.value
     const commenterEmail = commenterEmailElement.value
     const postId = Number(document.querySelector('#comment-post').value)
-    const response = await fetch('https://comment-backend.jason-bd7.workers.dev', {
+    const response = await fetch('https://comment-backend.jason-1c2.workers.dev', {
       method: "POST", // Specify the method
       headers: {
         "Content-Type": "application/json", // Tell the server you're sending JSON
