@@ -151,9 +151,11 @@ export default buildConfig({
                         // Commented for now to prevent publish spam during content migration
                         await execPromise('./build-and-deploy.sh')
                         await execPromise('./build.sh')
+                        console.log('Publishing complete')
                     } else {
                         console.log('Building staging')
                         await execPromise('./build.sh')
+                        console.log('Staging complete')
                     }
                     return {output: {success: true}};
                 },
