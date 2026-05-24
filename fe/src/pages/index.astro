@@ -35,7 +35,7 @@ const {imagesByAuthorId, imagesByPostId} = await getThubmnailAndAuthorImages([
                   <a href={postToPath(post)} class="flex flex-col gap-4 md:flex-row h-auto align-middle">
                     <MediaImage image={imagesByPostId.get(post.id)?.image} class="max-w-full md:max-w-2/3"/>
                     <div class="flex flex-col flex-1 overflow-hidden justify-center gap-1">
-                      <h3 class="size-override text-[1.6em] md:text-[1.8em] lg:text-[2.5em] break-words">{post.title}</h3>
+                      <h3 class="size-override text-[1.6em] md:text-[1.8em] lg:text-[2.5em] break-words leading-none">{post.title}</h3>
                         {post.author &&
                             <p class="text-sm mt-1 font-bold">
                               <MediaImage class="inline-block rounded-full mr-2"
@@ -109,7 +109,7 @@ const {imagesByAuthorId, imagesByPostId} = await getThubmnailAndAuthorImages([
                               image={imagesByPostId.get(post.id)?.image}
                               style={{height: 'fit-content'}}/>
                   <div class="flex flex-col flex-1 overflow-hidden justify-start text-white">
-                    <h3 class="size-override text-[1.6em] break-words">{post.title}</h3>
+                    <h3 class="size-override text-[1.6em] break-words leading-none">{post.title}</h3>
                       {post.author &&
                           <p class="text-sm mt-1 font-bold">
                             <MediaImage class="inline-block rounded-full mr-2"
@@ -140,7 +140,7 @@ const {imagesByAuthorId, imagesByPostId} = await getThubmnailAndAuthorImages([
                   <img src={imagesByPostId.get(post.id)?.image.src} alt="Background image"
                        class="absolute inset-0 h-full w-full object-cover z-10"/>
                   <div class="relative bg-black/50 hover:bg-black/20 shadow-2xl flex flex-col items-center justify-end pb-6 px-4 z-100 h-full">
-                    <h3 class="size-override break-words text-center"
+                    <h3 class="size-override break-words text-center leading-none"
                         class:list={[{'text-[1.6em]': i < 2}, {'text-[1em]': i >= 2},]}>{post.title}</h3>
                       {post.author &&
                           <p class="mt-1 font-bold" class:list={[{'text-sm': i < 2}, {'text-xs': i >= 2},]}>
