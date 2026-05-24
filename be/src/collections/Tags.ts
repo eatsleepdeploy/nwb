@@ -1,5 +1,5 @@
 import type {CollectionConfig} from 'payload'
-import {populateSlug} from "@/collections/utils";
+import {deploy, populateSlug} from "@/collections/utils";
 
 
 export const Tags: CollectionConfig = {
@@ -10,6 +10,9 @@ export const Tags: CollectionConfig = {
     versions: false,
     access: {
         read: () => true,
+    },
+    hooks: {
+        afterChange: [deploy]
     },
     fields: [
         {

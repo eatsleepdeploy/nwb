@@ -149,7 +149,7 @@ export default buildConfig({
                     if (input.status === 'published') {
                         console.log('Publishing to prod')
                         // Commented for now to prevent publish spam during content migration
-                        // await execPromise('./build-and-deploy.sh')
+                        await execPromise('./build-and-deploy.sh')
                         await execPromise('./build.sh')
                     } else {
                         console.log('Building staging')

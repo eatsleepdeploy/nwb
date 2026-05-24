@@ -33,7 +33,7 @@ export const deploy: CollectionAfterChangeHook<Post | Page> = async ({doc, req})
     await req.payload.jobs.queue({
         task: 'buildAndOrDeploy',
         input: {
-            status: doc._status
+            status: doc._status || 'published'
         },
     })
     return doc
