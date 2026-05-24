@@ -13,7 +13,8 @@ const baseTitle = "No Wanky Bollocks"
 const url = `https://nowankybollocks.com${Astro.url.pathname}`
 const thisTitle = title ? `${title} - ${baseTitle}` : baseTitle;
 const defaultDescription = "Read 100+ interviews from people across the marketing and advertising industry sharing their personal fuck ups, confessions, and industry pet peeves."
-const thisDescription = description || defaultDescription
+const thisDescription = description || defaultDescription;
+const thisImageUrl = imageUrl || '/title.png'
 ---
 <!doctype html>
 <html lang="en-GB">
@@ -34,7 +35,7 @@ const thisDescription = description || defaultDescription
 		<meta property="og:title" content={thisTitle}>
 		<meta property="og:description" content={thisDescription}>
 		<meta property="og:url" content={url} />
-		{imageUrl && <meta property="og:image" content={`https://nowankybollocks.com${imageUrl}`}>}
+		<meta property="og:image" content={`https://nowankybollocks.com${thisImageUrl}`}>
 
 		<meta property="og:site_name" content="No Wanky Bollocks">
 		<meta property="og:locale" content="en_GB">
