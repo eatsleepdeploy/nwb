@@ -57,11 +57,18 @@ h5 {
     font-family: "Open Sans", sans-serif;
 }
 
+.content h1 {
+    font-size: 1.8em;
+    line-height: 1.1;
+    margin-top: 1.6em;
+    font-weight: bold;
+}
+
 .content h2 {
     font-size: 1.6em;
     line-height: 1.1;
     margin-top: 1.6em;
-    font-weight: normal;
+    font-weight: bold;
 }
 
 .content p {

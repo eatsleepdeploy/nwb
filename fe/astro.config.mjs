@@ -46,6 +46,10 @@ export default defineConfig({
       status: 301,
       destination: "/interviews/8"
     },
+    "/tag/vetran": {
+      status: 301,
+      destination: "/tag/veteran"
+    },
   },
 
   vite: {

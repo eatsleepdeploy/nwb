@@ -13,9 +13,6 @@
 # Deployment
 - [] Setup Cloudflare deployment
   - Add an `afterChange` trigger to all the places to run a deploy post build
-- [] Ensure all posts are moved over.
-- [] Ensure all comments are moved over.
-- [] Test comments. 
 - [] Switch domain over & test comments
 
 # Post-1st-deploy
@@ -28,9 +25,9 @@
     - With a copy db in D1?
     - Some sort of JSON dump with regex query?
   - Algolia?
-- [] Ad debounce to build/deploy afterChange in case of build updates
 - [] Check cloudflare bot protection
   - site
   - comments
 - [] Write up blog post about approach
 - [] Add a 404 page
+- [] Update footer links to grab by most used tags

@@ -1,9 +1,7 @@
 ---
 import {getTags} from "@lib/tagUtils";
 import type { Tag } from "@root/payload-types";
-import Twitter from "./socials/Twitter.astro";
 import ExternalLink from "./ExternalLink.astro";
-import LinkedIn from "./socials/LinkedIn.astro";
 const tags = await getTags()
 ---
 <div class="px-10 my-0 bg-black text-white">
@@ -22,7 +20,7 @@ const tags = await getTags()
         </div>
         <div class="col-span-4">
           <h5 class="text-gray-500 mb-2">Hot right now</h5>
-          {tags.map((tag: Tag) => (
+          {tags.slice(0, 15).map((tag: Tag) => (
               <a class="pe-4" href={`/tag/${tag.slug}`}>{tag.title}</a>)
           )}
 
@@ -30,7 +28,7 @@ const tags = await getTags()
         <div class="col-span-2">
           <h5 class="text-gray-500 mb-2">Follow on</h5>
           <ExternalLink class="chivo-heading block text-[1.4em] font-bold uppercase flex flex-row items-center gap-2" href="https://www.linkedin.com/company/nowankybollocks/">
-            <LinkedIn /> LinkedIn
+            LinkedIn
           </ExternalLink>
         </div>
       </div>
