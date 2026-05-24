@@ -3,23 +3,41 @@ import "../styles/global.css";
 import Navigation from "@components/Navigation.astro";
 
 interface Props {
+	description?: string | null;
+	imageUrl?: string;
 	title?: string;
+	type?: string;
 }
-const { title } = Astro.props;
+const { description, imageUrl, title, type } = Astro.props;
 const baseTitle = "No Wanky Bollocks"
+const url = `https://nowankybollocks.com${Astro.url.pathname}`
+const thisTitle = title ? `${title} - ${baseTitle}` : baseTitle;
+const defaultDescription = "Read 100+ interviews from people across the marketing and advertising industry sharing their personal fuck ups, confessions, and industry pet peeves."
+const thisDescription = description || defaultDescription
 ---
 <!doctype html>
-<html lang="en">
+<html lang="en-GB">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content={thisDescription} />
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 		<link rel="icon" href="/nwb-favi.jpg" />
-		<link rel="canonical" href={`https://nowankybollocks.com/${Astro.url.pathname}`} />
+		<link rel="canonical" href={url} />
 	    <link rel="sitemap" href="/sitemap-index.xml" />
-		<title>{title ? `${title} - No Wanky Bollocks` : 'No Wanky Bollocks'}</title>
+		<title>{thisTitle}</title>
+
+		<!-- Required for all pages -->
+		<meta property="og:type" content="website">
+		<meta property="og:title" content={thisTitle}>
+		<meta property="og:description" content={thisDescription}>
+		<meta property="og:url" content={url} />
+		{imageUrl && <meta property="og:image" content={`https://nowankybollocks.com${imageUrl}`}>}
+
+		<meta property="og:site_name" content="No Wanky Bollocks">
+		<meta property="og:locale" content="en_GB">
 	</head>
 	<body class="flex flex-col">
 		<Navigation />

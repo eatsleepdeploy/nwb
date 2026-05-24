@@ -34,14 +34,18 @@ const posts = page.data
 const {imagesByAuthorId, imagesByPostId} = await getThubmnailAndAuthorImages(posts)
 ---
 
-<Layout title={tag.title}>
+<Layout title={tag.title} description={tag.description}>
   <div class="px-10 my-12 bounded bg-white flex-grow">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-2 md:gap-y-6">
-      <div class="flex items-end my-8 mb-16 border-spacing-0 md:col-span-2 justify-center ">
+      <div class="flex items-end my-8 mb-8 border-spacing-0 md:col-span-2 justify-center ">
         <h3 class="max-h-full size-override text-white text-[1.8em] uppercase bg-black px-4 py-2 ">
           <span class="">Tag: {tag.title}</span>
         </h3>
       </div>
+      {tag.description && (<div class="md:col-span-2 text-center mb-8">
+        <p>{tag.description}</p>
+      </div>)}
+
         {
             posts.map((post: Post, i: number) => (
                 <a href={postToPath(post)} class="flex flex-col gap-3 md:flex-row align-middle">

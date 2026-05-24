@@ -21,12 +21,12 @@ interface Props {
 // All paginated data is passed on the "page" prop
 const { page } = Astro.props;
 
-
+const description = "Read 100+ interviews from people across the marketing and advertising industry sharing their personal fuck ups, confessions, and industry pet peeves."
 const firstThreePosts = page.data.slice(0, 3)
 const remainingPosts = page.data.slice(3)
 const {imagesByAuthorId, imagesByPostId} = await getThubmnailAndAuthorImages(page.data)
 ---
-<Layout title="Interviews">
+<Layout title="Interviews" description={description}>
   {page.currentPage == 1 && (
     <div class="bounded bg-black text-white px-12 pb-12">
       <h1 class="block text-center my-8">Interviews</h1>

@@ -45,7 +45,7 @@ const headerImage = await getMainImage(post)
 const comments = await getComments(post)
 ---
 
-<Layout title={post.title}>
+<Layout title={post.title} imageUrl={headerImage.src} description={post.excerpt}>
   <div class="px-0 lg:pl-6 py-48 bg-cover bg-center flex justify-center md:justify-start w-full"
        style={{backgroundImage: `url(${headerImage.src})`}}>
     <div class="bounded w-full">
