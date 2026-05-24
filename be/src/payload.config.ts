@@ -148,7 +148,6 @@ export default buildConfig({
                     // Your logic here
                     if (input.status === 'published') {
                         console.log('Publishing to prod')
-                        // Commented for now to prevent publish spam during content migration
                         await execPromise('./build-and-deploy.sh')
                         await execPromise('./build.sh')
                         console.log('Publishing complete')
@@ -165,7 +164,7 @@ export default buildConfig({
         autoRun: [
             {
                 cron: '* * * * *', // Check for jobs every minute
-                queue: 'default', // Process jobs from 'daily' queue
+                queue: 'default',
                 limit: 10,
             },
         ],
