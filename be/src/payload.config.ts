@@ -88,7 +88,7 @@ export default buildConfig({
                         "sql": "SELECT * FROM comments WHERE id > ? order by id asc",
                         "params": [biggestCommentImportId]
                     }
-                    const d1Url = "https://api.cloudflare.com/client/v4/accounts/4bd7e0101ed0269b44aa0d935e24aa5a/d1/database/b569de49-b082-4bc5-8de5-ed8f219b9d4b/query"
+                    const d1Url = "https://api.cloudflare.com/client/v4/accounts/4bd7e0101ed0269b44aa0d935e24aa5a/d1/database/99483166-6b7d-4df8-b70b-363a469fa51b/query"
                     const response = await fetch(d1Url, {
                         method: "POST",
                         headers: {
