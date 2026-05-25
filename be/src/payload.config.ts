@@ -58,7 +58,7 @@ export default buildConfig({
                 slug: 'importComments',
                 schedule: [
                     {
-                        cron: '0 8 * * *', // Every day at 8:00 AM
+                        cron: '0 */4 * * *', // Every 4 hours
                         queue: 'default', // Queue to add the job to
                     },
                 ],
