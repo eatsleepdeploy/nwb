@@ -1,5 +1,6 @@
 import {stringify} from 'qs-esm'
 import type {Page} from "@root/payload-types.ts";
+import type {Where} from "payload";
 
 
 export const getPages = async (limit: number = 10) => {
@@ -8,6 +9,11 @@ export const getPages = async (limit: number = 10) => {
         depth: 2,
         sort: '-publishedAt',
         draft: process.env.IS_PREVIEW === 'true',
+        where: {
+            'slug': {
+                'exists': true
+            },
+        } satisfies Where,
     })
     console.log(stringifiedQuery)
     const res = await fetch(`http://localhost:3000/api/pages?${stringifiedQuery}`)

@@ -16,6 +16,11 @@ export const postToPublishDate = (post: Post) : string => {
 
 export const getPosts = async (limit: number = 10) => {
     const stringifiedQuery = stringify({
+        where: {
+            'slug': {
+                'exists': true
+            },
+        } satisfies Where,
         limit,
         depth: 2,
         sort: '-publishedAt',
@@ -34,6 +39,9 @@ export const getPostsWithTags = async (tags: string[], limit: number = 10, exclu
             },
             'id': {
                 not_in: exclude_ids
+            },
+            'slug': {
+                'exists': true
             },
         } satisfies Where,
         draft: process.env.IS_PREVIEW === 'true',
