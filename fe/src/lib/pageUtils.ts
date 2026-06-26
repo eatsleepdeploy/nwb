@@ -13,6 +13,9 @@ export const getPages = async (limit: number = 10) => {
             'slug': {
                 'exists': true
             },
+            _status: {
+              equals: 'published',
+            },
         } satisfies Where,
     })
     console.log(stringifiedQuery)
